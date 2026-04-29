@@ -1,0 +1,9 @@
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/config/FileStorageProperties.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/config/MinioConfiguration.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/controller/FileStorageController.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/dto/DownloadUrlResponse.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/dto/FileResponse.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/entity/StoredFile.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/repository/StoredFileRepository.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/service/FileStorageMapper.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/service/FileStorageService.java

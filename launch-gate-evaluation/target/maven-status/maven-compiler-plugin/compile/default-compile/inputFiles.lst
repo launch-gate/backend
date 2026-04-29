@@ -1,0 +1,16 @@
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/controller/EvaluationController.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/dto/AiReviewCreatedResponse.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/dto/AssignmentListResponse.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/dto/AssignmentRequest.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/dto/AssignmentResponse.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/dto/ReviewDraftRequest.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/dto/ReviewResponse.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/dto/ReviewSummary.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/entity/AiReview.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/entity/ReviewAssignment.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/entity/ReviewStatus.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/repository/AiReviewRepository.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/repository/ReviewAssignmentRepository.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/service/EvaluationCatalog.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/service/EvaluationMapper.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-evaluation/src/main/java/com/launchgate/evaluation/service/EvaluationService.java
