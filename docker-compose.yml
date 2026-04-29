@@ -1,4 +1,4 @@
-name: launch-gate
+version: "3.8"
 
 services:
   app:
@@ -26,10 +26,8 @@ services:
     ports:
       - "${APP_PORT:-8090}:8090"
     depends_on:
-      postgres:
-        condition: service_healthy
-      minio:
-        condition: service_started
+      - postgres
+      - minio
 
   postgres:
     image: postgres:17
@@ -42,11 +40,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
 
   minio:
     image: minio/minio:latest
