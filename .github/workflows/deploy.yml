@@ -56,4 +56,4 @@ jobs:
       - name: Rebuild and restart containers
         run: |
           ssh -p "${{ secrets.DEPLOY_PORT }}" "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
-            "cd ${DEPLOY_PATH} && docker-compose up -d --build"
+            "cd ${DEPLOY_PATH} && docker compose up -d --build"
