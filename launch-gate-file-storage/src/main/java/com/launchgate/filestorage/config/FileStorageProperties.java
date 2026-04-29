@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "launch-gate.files")
 public record FileStorageProperties(
         String endpoint,
+        String publicEndpoint,
         String accessKey,
         String secretKey,
         String bucket

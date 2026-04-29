@@ -18,6 +18,7 @@ import io.minio.PutObjectArgs;
 import io.minio.http.Method;
 import java.time.Clock;
 import java.time.Instant;
+import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,7 +69,7 @@ public class FileStorageService {
                     .object(file.getObjectKey())
                     .expiry(60 * 20)
                     .build());
-            return new DownloadUrlResponse(url);
+            return new DownloadUrlResponse(publicUrl(url));
         } catch (Exception exception) {
             throw new DomainException("file_url_failed", "Could not create download URL");
         }
@@ -79,6 +80,22 @@ public class FileStorageService {
         if (!exists) {
             minioClient.makeBucket(MakeBucketArgs.builder().bucket(properties.bucket()).build());
         }
+    }
+
+    private String publicUrl(String internalUrl) {
+        var publicEndpoint = normalizeEndpoint(properties.publicEndpoint());
+        var internalEndpoint = normalizeEndpoint(properties.endpoint());
+        if (publicEndpoint == null || internalEndpoint == null || publicEndpoint.equals(internalEndpoint)) {
+            return internalUrl;
+        }
+        return internalUrl.replaceFirst(Pattern.quote(internalEndpoint), publicEndpoint);
+    }
+
+    private String normalizeEndpoint(String endpoint) {
+        if (endpoint == null || endpoint.isBlank()) {
+            return null;
+        }
+        return endpoint.endsWith("/") ? endpoint.substring(0, endpoint.length() - 1) : endpoint;
     }
 
 }
