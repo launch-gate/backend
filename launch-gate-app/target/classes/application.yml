@@ -10,7 +10,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5433/launch_gate}
     username: ${DB_USERNAME:launch_gate}
-    password: ${DB_PASSWORD}
+    password: ${DB_PASSWORD:launch_gate}
   jpa:
     hibernate:
       ddl-auto: validate
