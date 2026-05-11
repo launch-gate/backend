@@ -21,7 +21,10 @@
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/security/JwtConfiguration.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/security/JwtProperties.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/security/PasswordConfiguration.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/security/RestAccessDeniedHandler.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/security/RestAuthenticationEntryPoint.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/security/SecurityConfiguration.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/security/SecurityExceptionHandler.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/service/AuthenticationService.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/service/JwtService.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-identity/src/main/java/com/launchgate/identity/service/UserService.java

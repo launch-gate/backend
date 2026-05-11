@@ -8,6 +8,7 @@ com/launchgate/identity/dto/ContactRequest.class
 com/launchgate/identity/dto/ContactResponse.class
 com/launchgate/identity/service/JwtService$1.class
 com/launchgate/identity/dto/UpdateProfileRequest.class
+com/launchgate/identity/security/SecurityExceptionHandler.class
 com/launchgate/identity/repository/AccessTokenRepository.class
 com/launchgate/identity/repository/UserContactRepository.class
 com/launchgate/identity/security/JwtProperties.class
@@ -20,10 +21,12 @@ com/launchgate/identity/controller/UserController.class
 com/launchgate/identity/dto/AuthenticatedUser.class
 com/launchgate/identity/dto/UserProfileResponse.class
 com/launchgate/identity/security/JwtConfiguration.class
+com/launchgate/identity/security/RestAccessDeniedHandler.class
 com/launchgate/identity/entity/AccountType.class
 com/launchgate/identity/dto/AuthResponse.class
 com/launchgate/identity/service/AuthenticationService.class
 com/launchgate/identity/security/JwtAuthenticationFilter.class
+com/launchgate/identity/security/RestAuthenticationEntryPoint.class
 com/launchgate/identity/service/UserService.class
 com/launchgate/identity/security/SecurityConfiguration.class
 com/launchgate/identity/entity/AccessToken.class
