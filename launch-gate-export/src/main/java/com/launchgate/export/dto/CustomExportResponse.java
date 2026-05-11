@@ -1,9 +1,11 @@
 package com.launchgate.export.dto;
 
-import com.launchgate.export.entity.*;
-
-import jakarta.validation.constraints.NotNull;
-
+/**
+ * Результат настраиваемой выгрузки.
+ *
+ * @param jobId идентификатор выгрузки
+ * @param preview предварительный реузьтат
+ */
 public record CustomExportResponse(
         Long jobId,
         String preview

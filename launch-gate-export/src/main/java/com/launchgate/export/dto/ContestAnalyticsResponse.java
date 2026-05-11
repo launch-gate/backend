@@ -1,13 +1,17 @@
 package com.launchgate.export.dto;
 
-import com.launchgate.export.entity.*;
-
-import jakarta.validation.constraints.NotNull;
-
+/**
+ * Аналитический отчет по конкурсу.
+ *
+ * @param registrations Количество участников.
+ * @param teams Количество команд.
+ * @param stages Количество этапов.
+ * @param submittedWorks Количество поданных работ.
+ */
 public record ContestAnalyticsResponse(
-        long registrations,
-        long teams,
-        long stages,
-        long submittedWorks
+        Long registrations,
+        Long teams,
+        Long stages,
+        Long submittedWorks
 ) {
 }

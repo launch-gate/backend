@@ -17,7 +17,7 @@ public class ContestRolePolicy {
 
     public void requireAny(Long contestId, Long userId, ContestRole... roles) {
         if (!organizerRepository.existsByContestIdAndUserIdAndRoleIn(contestId, userId, Arrays.asList(roles))) {
-            throw new ForbiddenException("User does not have required contest role");
+            throw new ForbiddenException("Пользователь не обладает требуемой ролью в рамках конкурса");
         }
     }
 
