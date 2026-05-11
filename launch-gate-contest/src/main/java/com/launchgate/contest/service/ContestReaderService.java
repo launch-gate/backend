@@ -36,7 +36,7 @@ public class ContestReaderService {
         return stageRepository.findAllByContestIdOrderByOrderAsc(contestId);
     }
 
-    public List<SubmissionField> fields(Long stageId) {
+    public List<SubmissionField> getSubmissionFields(Long stageId) {
         return fieldRepository.findAllByStageIdOrderByOrderAsc(stageId);
     }
 

@@ -46,3 +46,6 @@ launch-gate:
     access-key: ${MINIO_ACCESS_KEY}
     secret-key: ${MINIO_SECRET_KEY}
     bucket: ${MINIO_BUCKET:launch-gate}
+  ai-evaluation:
+    repository-review-url: ${AI_EVALUATION_REPOSITORY_REVIEW_URL:http://localhost:8000/analyze/repository}
+    text-review-url: ${AI_EVALUATION_TEXT_REVIEW_URL:http://localhost:8000/analyze/text}

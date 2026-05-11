@@ -13,17 +13,17 @@ public final class MentoringMapper {
     public static MentorAssignmentResponse toResponse(MentorAssignment assignment) {
         return new MentorAssignmentResponse(
                 assignment.getId(),
-                assignment.getContestId(),
-                assignment.getTeamId(),
-                assignment.getMentorId()
+                assignment.getContest().getId(),
+                assignment.getTeam().getId(),
+                assignment.getMentor().getId()
         );
     }
 
     public static MentorCallResponse toResponse(MentorCall call) {
         return new MentorCallResponse(
                 call.getId(),
-                call.getTeamId(),
-                call.getMentorId(),
+                call.getTeam().getId(),
+                call.getMentor().getId(),
                 call.getStartsAt(),
                 call.getEndsAt(),
                 call.getLink(),

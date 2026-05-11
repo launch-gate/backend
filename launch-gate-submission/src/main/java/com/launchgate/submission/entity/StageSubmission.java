@@ -1,11 +1,5 @@
 package com.launchgate.submission.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-
-
 import com.launchgate.contest.entity.stage.ContestStage;
 import com.launchgate.identity.entity.UserAccount;
 import jakarta.persistence.Column;
@@ -23,6 +17,9 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(schema = "submission", name = "stage_submissions")
@@ -34,18 +31,21 @@ public class StageSubmission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "project_id", nullable = false)
-    private Long projectId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
 
-    @Column(name = "stage_id", nullable = false)
-    private Long stageId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stage_id", nullable = false)
+    private ContestStage stage;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 32)
     private SubmissionStatus status = SubmissionStatus.DRAFT;
 
-    @Column(name = "submitted_by")
-    private Long submittedBy;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submitted_by")
+    private UserAccount submittedByUser;
 
     @Column(name = "submitted_at")
     private Instant submittedAt;
@@ -53,30 +53,30 @@ public class StageSubmission {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id", insertable = false, updatable = false)
-    private Project project;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stage_id", insertable = false, updatable = false)
-    private ContestStage stage;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "submitted_by", insertable = false, updatable = false)
-    private UserAccount submittedByUser;
-
     @OneToMany(mappedBy = "submission")
     private Set<SubmissionValue> values = new HashSet<>();
 
-    public StageSubmission(Long projectId, Long stageId, Instant createdAt) {
-        this.projectId = projectId;
-        this.stageId = stageId;
+    public StageSubmission(Project project, ContestStage stage, Instant createdAt) {
+        this.project = project;
+        this.stage = stage;
         this.createdAt = createdAt;
     }
 
-    public void submit(Long userId, Instant now) {
+    public void submit(UserAccount submittedByUser, Instant now) {
         status = SubmissionStatus.SUBMITTED;
-        submittedBy = userId;
+        this.submittedByUser = submittedByUser;
         submittedAt = now;
+    }
+
+    public Long getProjectId() {
+        return project.getId();
+    }
+
+    public Long getStageId() {
+        return stage.getId();
+    }
+
+    public Long getSubmittedBy() {
+        return submittedByUser == null ? null : submittedByUser.getId();
     }
 }

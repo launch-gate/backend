@@ -1,8 +1,12 @@
 package com.launchgate.contest.utils.field;
 
+import com.launchgate.contest.dto.FieldCriterionResponse;
 import com.launchgate.contest.dto.FieldParticipantResponse;
 import com.launchgate.contest.dto.FieldResponse;
+import com.launchgate.contest.entity.FieldCriterion;
 import com.launchgate.contest.entity.SubmissionField;
+import java.util.Comparator;
+import java.util.List;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -17,11 +21,10 @@ public class SubmissionFieldMapper {
                 field.isRequired(),
                 field.getFileFormats(),
                 field.getMaxFileSizeMb(),
-                field.getOptions(),
                 field.getParticipantHint(),
                 field.getExampleValue(),
                 field.getExpertNote(),
-                field.getCriteriaDescription()
+                criteria(field)
         );
     }
 
@@ -34,10 +37,20 @@ public class SubmissionFieldMapper {
                 field.isRequired(),
                 field.getFileFormats(),
                 field.getMaxFileSizeMb(),
-                field.getOptions(),
                 field.getParticipantHint(),
                 field.getExampleValue()
         );
+    }
+
+    private static List<FieldCriterionResponse> criteria(SubmissionField field) {
+        return field.getCriteria().stream()
+                .sorted(Comparator.comparing(FieldCriterion::getOrder))
+                .map(criterion -> new FieldCriterionResponse(
+                        criterion.getId(),
+                        criterion.getOrder(),
+                        criterion.getDescription()
+                ))
+                .toList();
     }
 
 }

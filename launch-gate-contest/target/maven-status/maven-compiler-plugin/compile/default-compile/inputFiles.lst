@@ -7,6 +7,10 @@
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/controller/ContestTeamController.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/dto/ContestMetrics.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/dto/DeletedResponse.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/dto/FieldCriterionRequest.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/dto/FieldCriterionResponse.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/dto/FieldFormatListResponse.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/dto/FieldFormatResponse.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/dto/FieldListResponse.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/dto/FieldParticipantListResponse.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/dto/FieldParticipantResponse.java
@@ -44,11 +48,14 @@
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/ContestResource.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/ContestRole.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/ContestStatus.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/FieldCriterion.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/FieldFileFormatCategory.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/FieldType.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/ParticipationMode.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/ResourceType.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/ScoreScale.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/SubmissionField.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/SubmissionFieldFileFormat.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/order/BaseOrderEntity.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/stage/ContestStage.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/entity/team/Team.java
@@ -60,6 +67,7 @@
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/repository/ContestRepository.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/repository/ContestResourceRepository.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/repository/ContestStageRepository.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/repository/FieldCriterionRepository.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/repository/SubmissionFieldRepository.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/repository/TeamJoinRequestRepository.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/repository/TeamMemberRepository.java
@@ -73,8 +81,10 @@
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/service/ContestStageFieldService.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/service/ContestStageService.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/service/SortOrderService.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/service/SubmissionFieldConfigurationService.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/service/TeamService.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/utils/contest/ContestMapper.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/utils/field/SubmissionFieldFormatMapper.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/utils/field/SubmissionFieldMapper.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/utils/organizer/OrganizerMapper.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-contest/src/main/java/com/launchgate/contest/utils/registration/ContestRegistrationMapper.java

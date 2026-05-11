@@ -1,4 +1,6 @@
+com/launchgate/contest/dto/FieldFormatListResponse.class
 com/launchgate/contest/entity/ContestResource.class
+com/launchgate/contest/entity/FieldCriterion.class
 com/launchgate/contest/controller/ContestStageFieldController.class
 com/launchgate/contest/service/TeamService.class
 com/launchgate/contest/repository/ContestStageRepository.class
@@ -11,6 +13,7 @@ com/launchgate/contest/dto/registration/ContestParticipantOrganizerResponse.clas
 com/launchgate/contest/dto/FieldListResponse.class
 com/launchgate/contest/dto/resources/ResourceResponse.class
 com/launchgate/contest/entity/team/TeamJoinRequest.class
+com/launchgate/contest/dto/FieldCriterionResponse.class
 com/launchgate/contest/controller/ContestController.class
 com/launchgate/contest/controller/ContestStageController.class
 com/launchgate/contest/dto/SubmissionFieldRequest.class
@@ -21,6 +24,9 @@ com/launchgate/contest/dto/stage/StageParticipantResponse.class
 com/launchgate/contest/utils/contest/ContestMapper.class
 com/launchgate/contest/entity/team/TeamMember.class
 com/launchgate/contest/entity/ParticipationMode.class
+com/launchgate/contest/utils/field/SubmissionFieldFormatMapper.class
+com/launchgate/contest/dto/FieldCriterionRequest.class
+com/launchgate/contest/entity/FieldFileFormatCategory.class
 com/launchgate/contest/service/ContestRolePolicy.class
 com/launchgate/contest/controller/ContestResourceController.class
 com/launchgate/contest/repository/ContestRepository.class
@@ -48,6 +54,7 @@ com/launchgate/contest/dto/stage/StageOrganizesListResponse.class
 com/launchgate/contest/repository/TeamJoinRequestRepository.class
 com/launchgate/contest/dto/registration/ParticipantContestRegistrationResponse.class
 com/launchgate/contest/dto/registration/ContestParticipantResponse.class
+com/launchgate/contest/repository/FieldCriterionRepository.class
 com/launchgate/contest/utils/organizer/OrganizerMapper.class
 com/launchgate/contest/entity/ScoreScale.class
 com/launchgate/contest/dto/resources/ResourceRequest.class
@@ -55,10 +62,13 @@ com/launchgate/contest/dto/team/AllTeamsResponse.class
 com/launchgate/contest/entity/FieldType.class
 com/launchgate/contest/dto/stage/StageOrganizesResponse.class
 com/launchgate/contest/dto/OrganizerResponse.class
+com/launchgate/contest/entity/SubmissionFieldFileFormat.class
 com/launchgate/contest/utils/registration/ContestRegistrationMapper.class
 com/launchgate/contest/controller/ContestRegistrationController.class
 com/launchgate/contest/entity/ContestStatus.class
+com/launchgate/contest/dto/FieldFormatResponse.class
 com/launchgate/contest/entity/Contest.class
+com/launchgate/contest/service/SubmissionFieldConfigurationService.class
 com/launchgate/contest/service/ContestService.class
 com/launchgate/contest/dto/team/TeamRequest.class
 com/launchgate/contest/entity/ResourceType.class
@@ -74,5 +84,6 @@ com/launchgate/contest/service/ContestResourceService.class
 com/launchgate/contest/controller/ContestTeamController.class
 com/launchgate/contest/service/ContestStageFieldService.class
 com/launchgate/contest/dto/team/TeamJoinRequestListResponse.class
+com/launchgate/contest/service/SubmissionFieldConfigurationService$1.class
 com/launchgate/contest/dto/team/TeamRequestJoinResponse.class
 com/launchgate/contest/repository/SubmissionFieldRepository.class

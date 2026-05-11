@@ -12,8 +12,9 @@ import com.launchgate.contest.entity.stage.ContestStage;
 import com.launchgate.contest.service.ContestRolePolicy;
 import com.launchgate.evaluation.service.EvaluationCatalog;
 import com.launchgate.identity.dto.AuthenticatedUser;
+import com.launchgate.identity.service.UserService;
 import com.launchgate.submission.dto.SubmissionSummary;
-import com.launchgate.submission.service.SubmissionCatalog;
+import com.launchgate.submission.service.SubmissionReaderService;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
@@ -30,16 +31,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class ExportService {
     private final ContestReaderService contestReaderService;
     private final ContestRolePolicy rolePolicy;
-    private final SubmissionCatalog submissionCatalog;
+    private final SubmissionReaderService submissionReaderService;
     private final EvaluationCatalog evaluationCatalog;
     private final ExportJobRepository exportJobRepository;
+    private final UserService userService;
     private final Clock clock;
     @Transactional(readOnly = true)
     public ContestAnalyticsResponse analytics(AuthenticatedUser user, Long contestId) {
         rolePolicy.requireAny(contestId, user.id(), ContestRole.CREATOR, ContestRole.ADMIN);
         var metrics = contestReaderService.metrics(contestId);
         var submittedWorks = contestReaderService.stages(contestId).stream()
-                .mapToLong(stage -> submissionCatalog.submittedCount(stage.getId()))
+                .mapToLong(stage -> submissionReaderService.getSubmittedSubmissionCountByStage(stage.getId()))
                 .sum();
         return new ContestAnalyticsResponse(metrics.registrations(), metrics.teams(), metrics.stages(), submittedWorks);
     }
@@ -57,14 +59,16 @@ public class ExportService {
     @Transactional
     public CustomExportResponse createCustomExport(AuthenticatedUser user, Long contestId, CustomExportRequest request) {
         rolePolicy.requireAny(contestId, user.id(), ContestRole.CREATOR, ContestRole.ADMIN);
-        var job = exportJobRepository.save(new ExportJob(contestId, user.id(), request.format(), request.prompt(), Instant.now(clock)));
+        var contest = contestReaderService.getContestById(contestId);
+        var creator = userService.getUserById(user.id());
+        var job = exportJobRepository.save(new ExportJob(contest, creator, request.format(), request.prompt(), Instant.now(clock)));
         var preview = "Custom export job accepted. AI adapter is not connected yet; default ranking columns will be used as fallback.";
         return new CustomExportResponse(job.getId(), preview);
     }
 
     private List<RankingRow> rankingRows(Long contestId) {
         return contestReaderService.stages(contestId).stream()
-                .flatMap(stage -> submissionCatalog.submittedByStage(stage.getId()).stream()
+                .flatMap(stage -> submissionReaderService.getSubmittedSubmissionsByStage(stage.getId()).stream()
                         .map(submission -> rankingRow(stage, submission)))
                 .sorted(Comparator.comparing(RankingRow::score).reversed())
                 .toList();

@@ -31,10 +31,10 @@ public class UserService {
         var user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
         user.updateProfile(request.fullName(), request.nickname(), request.bio());
-        contactRepository.deleteAllByUserId(userId);
+        contactRepository.deleteAllByUser_Id(userId);
         if (request.contacts() != null) {
             request.contacts().stream()
-                    .map(contact -> new UserContact(userId, contact.type(), contact.value(), contact.primaryContact()))
+                    .map(contact -> new UserContact(user, contact.type(), contact.value(), contact.primaryContact()))
                     .forEach(contactRepository::save);
         }
         return profileResponse(user);
@@ -54,6 +54,6 @@ public class UserService {
     }
 
     private UserProfileResponse profileResponse(UserAccount user) {
-        return AuthMapper.toProfile(user, contactRepository.findAllByUserId(user.getId()));
+        return AuthMapper.toProfile(user, contactRepository.findAllByUser_Id(user.getId()));
     }
 }

@@ -25,6 +25,7 @@
         <module>launch-gate-contest</module>
         <module>launch-gate-submission</module>
         <module>launch-gate-evaluation</module>
+        <module>launch-gate-ai-evaluation</module>
         <module>launch-gate-mentoring</module>
         <module>launch-gate-file-storage</module>
         <module>launch-gate-export</module>
@@ -35,6 +36,7 @@
         <java.version>25</java.version>
         <minio.version>8.5.17</minio.version>
         <poi.version>5.4.0</poi.version>
+        <pdfbox.version>3.0.4</pdfbox.version>
         <springdoc.version>3.0.2</springdoc.version>
     </properties>
 

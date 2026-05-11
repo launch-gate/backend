@@ -2,13 +2,17 @@ package com.launchgate.contest.service;
 
 import com.launchgate.common.DomainException;
 import com.launchgate.common.NotFoundException;
+import com.launchgate.contest.dto.FieldCriterionRequest;
+import com.launchgate.contest.dto.FieldFormatResponse;
 import com.launchgate.contest.dto.FieldParticipantResponse;
 import com.launchgate.contest.dto.FieldResponse;
 import com.launchgate.contest.dto.SubmissionFieldRequest;
 import com.launchgate.contest.entity.ContestStatus;
 import com.launchgate.contest.entity.ContestRole;
+import com.launchgate.contest.entity.FieldCriterion;
 import com.launchgate.contest.entity.SubmissionField;
 import com.launchgate.contest.repository.SubmissionFieldRepository;
+import com.launchgate.contest.utils.field.SubmissionFieldFormatMapper;
 import com.launchgate.contest.utils.field.SubmissionFieldMapper;
 import com.launchgate.identity.dto.AuthenticatedUser;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +28,19 @@ public class ContestStageFieldService {
     private final ContestReaderService contestReaderService;
     private final SortOrderService sortOrderService;
     private final ContestRolePolicy rolePolicy;
+    private final SubmissionFieldConfigurationService submissionFieldConfigurationService;
 
     @Transactional(readOnly = true)
     public List<FieldResponse> organizerFields(Long stageId) {
         return fieldRepository.findAllByStageIdOrderByOrderAsc(stageId).stream()
                 .map(SubmissionFieldMapper::toFieldResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<FieldFormatResponse> supportedFormats() {
+        return submissionFieldConfigurationService.allFormats().stream()
+                .map(SubmissionFieldFormatMapper::toResponse)
                 .toList();
     }
 
@@ -47,6 +59,7 @@ public class ContestStageFieldService {
     public FieldResponse create(AuthenticatedUser user, Long stageId, SubmissionFieldRequest request) {
         var stage = contestReaderService.getStageById(stageId);
         rolePolicy.requireAny(stage.getContestId(), user.id(), ContestRole.CREATOR, ContestRole.ADMIN);
+        submissionFieldConfigurationService.validate(request);
         var fields = fieldRepository.findAllByStageIdOrderByOrderAsc(stageId);
         var targetOrder = sortOrderService.normalizeRequestedOrder(request.order(), fields.size());
         sortOrderService.moveOrder(fields, targetOrder);
@@ -58,12 +71,11 @@ public class ContestStageFieldService {
                 request.required(),
                 request.fileFormats(),
                 request.maxFileSizeMb(),
-                request.options(),
                 request.participantHint(),
                 request.exampleValue(),
-                request.expertNote(),
-                request.criteriaDescription()
+                request.expertNote()
         );
+        field.replaceCriteria(buildCriteria(field, request.criteria()));
         return SubmissionFieldMapper.toFieldResponse(fieldRepository.save(field));
     }
 
@@ -71,6 +83,7 @@ public class ContestStageFieldService {
     public FieldResponse update(AuthenticatedUser user, Long stageId, Long fieldId, SubmissionFieldRequest request) {
         var stage = contestReaderService.getStageById(stageId);
         rolePolicy.requireAny(stage.getContestId(), user.id(), ContestRole.CREATOR, ContestRole.ADMIN);
+        submissionFieldConfigurationService.validate(request);
         var field = fieldRepository.findById(fieldId)
                 .orElseThrow(() -> new DomainException("field_missing", "Submission field not found"));
         if (!field.getStageId().equals(stageId)) {
@@ -84,12 +97,11 @@ public class ContestStageFieldService {
                 request.required(),
                 request.fileFormats(),
                 request.maxFileSizeMb(),
-                request.options(),
                 request.participantHint(),
                 request.exampleValue(),
-                request.expertNote(),
-                request.criteriaDescription()
+                request.expertNote()
         );
+        field.replaceCriteria(buildCriteria(field, request.criteria()));
         return SubmissionFieldMapper.toFieldResponse(field);
     }
 
@@ -105,5 +117,19 @@ public class ContestStageFieldService {
         fieldRepository.delete(field);
         sortOrderService.reorder(fieldRepository.findAllByStageIdOrderByOrderAsc(stageId));
         return fieldId;
+    }
+
+    private List<FieldCriterion> buildCriteria(SubmissionField field, List<FieldCriterionRequest> criteriaRequests) {
+        if (criteriaRequests == null || criteriaRequests.isEmpty()) {
+            return List.of();
+        }
+        var criteria = new java.util.ArrayList<FieldCriterion>();
+        for (var request : criteriaRequests) {
+            var targetOrder = sortOrderService.normalizeRequestedOrder(request.order(), criteria.size());
+            sortOrderService.moveOrder(criteria, targetOrder);
+            criteria.add(new FieldCriterion(field, targetOrder, request.description()));
+        }
+        sortOrderService.reorder(criteria);
+        return criteria;
     }
 }

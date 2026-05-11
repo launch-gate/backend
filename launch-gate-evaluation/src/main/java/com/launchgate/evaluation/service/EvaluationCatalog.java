@@ -16,7 +16,7 @@ public class EvaluationCatalog {
 
     @Transactional(readOnly = true)
     public ReviewSummary summary(Long submissionId) {
-        var reviews = reviewRepository.findAllBySubmissionId(submissionId).stream()
+        var reviews = reviewRepository.findAllBySubmission_Id(submissionId).stream()
                 .filter(review -> review.getScore() != null)
                 .toList();
         var total = reviews.stream()

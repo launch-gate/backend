@@ -17,9 +17,9 @@ public final class SubmissionMapper {
     public static ProjectResponse toProjectResponse(Project project, List<StageSubmissionResponse> submissions) {
         return new ProjectResponse(
                 project.getId(),
-                project.getContestId(),
-                project.getTeamId(),
-                project.getOwnerParticipantId(),
+                project.getContest().getId(),
+                project.getTeam() == null ? null : project.getTeam().getId(),
+                project.getOwnerParticipant() == null ? null : project.getOwnerParticipant().getId(),
                 submissions
         );
     }
@@ -38,6 +38,6 @@ public final class SubmissionMapper {
     }
 
     private static ValueResponse toValueResponse(SubmissionValue value) {
-        return new ValueResponse(value.getId(), value.getFieldId(), value.getValueText(), value.getFileIds());
+        return new ValueResponse(value.getId(), value.getField().getId(), value.getValueText(), value.getFileIds());
     }
 }

@@ -7,3 +7,5 @@
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/repository/StoredFileRepository.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/service/FileStorageMapper.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/service/FileStorageService.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/service/StoredFileContent.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-file-storage/src/main/java/com/launchgate/filestorage/service/StoredFileContentService.java

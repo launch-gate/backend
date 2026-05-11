@@ -83,17 +83,17 @@ public class AuthenticationService {
                 jwtService.issue(user, tokenId),
                 "Bearer",
                 jwtService.expiresInSeconds(),
-                AuthMapper.toProfile(user, contactRepository.findAllByUserId(user.getId()))
+                AuthMapper.toProfile(user, contactRepository.findAllByUser_Id(user.getId()))
         );
     }
 
     private void replaceContacts(UserAccount user, List<ContactRequest> contacts) {
-        contactRepository.deleteAllByUserId(user.getId());
+        contactRepository.deleteAllByUser_Id(user.getId());
         if (contacts == null) {
             return;
         }
         contacts.stream()
-                .map(contact -> new UserContact(user.getId(), contact.type(), contact.value(), contact.primaryContact()))
+                .map(contact -> new UserContact(user, contact.type(), contact.value(), contact.primaryContact()))
                 .forEach(contactRepository::save);
     }
 

@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SubmissionValueRepository extends JpaRepository<SubmissionValue, Long> {
-    List<SubmissionValue> findAllBySubmissionId(Long submissionId);
+    List<SubmissionValue> findAllBySubmission_Id(Long submissionId);
 
-    Optional<SubmissionValue> findBySubmissionIdAndFieldId(Long submissionId, Long fieldId);
+    Optional<SubmissionValue> findBySubmission_IdAndField_Id(Long submissionId, Long fieldId);
 }

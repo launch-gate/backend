@@ -26,11 +26,13 @@ public class MentorComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "stage_submission_id", nullable = false)
-    private Long stageSubmissionId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stage_submission_id", nullable = false)
+    private StageSubmission stageSubmission;
 
-    @Column(name = "mentor_id", nullable = false)
-    private Long mentorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mentor_id", nullable = false)
+    private UserAccount mentor;
 
     @Column(nullable = false, columnDefinition = "text")
     private String text;
@@ -38,18 +40,18 @@ public class MentorComment {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stage_submission_id", insertable = false, updatable = false)
-    private StageSubmission stageSubmission;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mentor_id", insertable = false, updatable = false)
-    private UserAccount mentor;
-
-    public MentorComment(Long stageSubmissionId, Long mentorId, String text, Instant createdAt) {
-        this.stageSubmissionId = stageSubmissionId;
-        this.mentorId = mentorId;
+    public MentorComment(StageSubmission stageSubmission, UserAccount mentor, String text, Instant createdAt) {
+        this.stageSubmission = stageSubmission;
+        this.mentor = mentor;
         this.text = text;
         this.createdAt = createdAt;
+    }
+
+    public Long getStageSubmissionId() {
+        return stageSubmission.getId();
+    }
+
+    public Long getMentorId() {
+        return mentor.getId();
     }
 }

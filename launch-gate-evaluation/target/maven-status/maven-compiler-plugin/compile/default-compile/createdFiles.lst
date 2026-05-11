@@ -2,15 +2,12 @@ com/launchgate/evaluation/dto/ReviewDraftRequest.class
 com/launchgate/evaluation/dto/ReviewResponse.class
 com/launchgate/evaluation/dto/AssignmentListResponse.class
 com/launchgate/evaluation/dto/ReviewSummary.class
-com/launchgate/evaluation/repository/AiReviewRepository.class
-com/launchgate/evaluation/dto/AiReviewCreatedResponse.class
 com/launchgate/evaluation/controller/EvaluationController.class
 com/launchgate/evaluation/repository/ReviewAssignmentRepository.class
 com/launchgate/evaluation/entity/ReviewAssignment.class
 com/launchgate/evaluation/service/EvaluationService.class
 com/launchgate/evaluation/service/EvaluationMapper.class
 com/launchgate/evaluation/dto/AssignmentResponse.class
-com/launchgate/evaluation/entity/AiReview.class
 com/launchgate/evaluation/entity/ReviewStatus.class
 com/launchgate/evaluation/service/EvaluationCatalog.class
 com/launchgate/evaluation/dto/AssignmentRequest.class

@@ -10,6 +10,7 @@ import com.launchgate.common.DomainException;
 import com.launchgate.common.NotFoundException;
 import com.launchgate.filestorage.config.FileStorageProperties;
 import com.launchgate.identity.dto.AuthenticatedUser;
+import com.launchgate.identity.repository.UserAccountRepository;
 import io.minio.BucketExistsArgs;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MakeBucketArgs;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class FileStorageService {
     private final StoredFileRepository fileRepository;
+    private final UserAccountRepository userAccountRepository;
     private final MinioClient minioClient;
     private final FileStorageProperties properties;
     private final Clock clock;
@@ -47,8 +49,10 @@ public class FileStorageService {
         } catch (Exception exception) {
             throw new DomainException("file_upload_failed", "Could not upload file to object storage");
         }
+        var owner = userAccountRepository.findById(user.id())
+                .orElseThrow(() -> new NotFoundException("User not found"));
         var storedFile = fileRepository.save(new StoredFile(
-                user.id(),
+                owner,
                 properties.bucket(),
                 objectKey,
                 file.getOriginalFilename(),

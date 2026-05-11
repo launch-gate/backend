@@ -1,6 +1,8 @@
 package com.launchgate.contest.dto;
 
 import com.launchgate.contest.entity.FieldType;
+import com.launchgate.contest.entity.SubmissionFieldFileFormat;
+import java.util.List;
 
 public record FieldParticipantResponse(
         Long id,
@@ -8,9 +10,8 @@ public record FieldParticipantResponse(
         String title,
         FieldType type,
         boolean required,
-        String fileFormats,
+        List<SubmissionFieldFileFormat> fileFormats,
         Integer maxFileSizeMb,
-        String options,
         String participantHint,
         String exampleValue
 ) {

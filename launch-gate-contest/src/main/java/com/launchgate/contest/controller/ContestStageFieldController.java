@@ -1,6 +1,7 @@
 package com.launchgate.contest.controller;
 
 import com.launchgate.contest.dto.DeletedResponse;
+import com.launchgate.contest.dto.FieldFormatListResponse;
 import com.launchgate.contest.dto.FieldParticipantListResponse;
 import com.launchgate.contest.dto.FieldListResponse;
 import com.launchgate.contest.dto.FieldResponse;
@@ -27,6 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Stage Fields", description = "Submission field management for contest stages")
 public class ContestStageFieldController {
     private final ContestStageFieldService contestStageFieldService;
+
+    @GetMapping("/organizer/field-formats")
+    @Operation(summary = "List all supported submission field file formats")
+    public FieldFormatListResponse supportedFormats() {
+        return new FieldFormatListResponse(contestStageFieldService.supportedFormats());
+    }
 
     @GetMapping("/organizer/stages/{stageId}/fields")
     @Operation(summary = "List stage submission fields for organizers")

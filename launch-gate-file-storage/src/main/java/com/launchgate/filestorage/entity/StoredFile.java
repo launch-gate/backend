@@ -25,11 +25,8 @@ public class StoredFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "owner_id", nullable = false)
-    private Long ownerId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id", insertable = false, updatable = false)
+    @JoinColumn(name = "owner_id", nullable = false)
     private UserAccount owner;
 
     @Column(nullable = false, length = 120)
@@ -50,15 +47,19 @@ public class StoredFile {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    public StoredFile(Long ownerId, String bucket, String objectKey, String originalFilename,
+    public StoredFile(UserAccount owner, String bucket, String objectKey, String originalFilename,
                       String contentType, long sizeBytes, Instant createdAt) {
-        this.ownerId = ownerId;
+        this.owner = owner;
         this.bucket = bucket;
         this.objectKey = objectKey;
         this.originalFilename = originalFilename;
         this.contentType = contentType;
         this.sizeBytes = sizeBytes;
         this.createdAt = createdAt;
+    }
+
+    public Long getOwnerId() {
+        return owner.getId();
     }
 
 }

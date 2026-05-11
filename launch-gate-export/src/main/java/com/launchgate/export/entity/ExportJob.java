@@ -28,18 +28,12 @@ public class ExportJob {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "contest_id", nullable = false)
-    private Long contestId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contest_id", insertable = false, updatable = false)
+    @JoinColumn(name = "contest_id", nullable = false)
     private Contest contest;
 
-    @Column(name = "created_by", nullable = false)
-    private Long createdBy;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", insertable = false, updatable = false)
+    @JoinColumn(name = "created_by", nullable = false)
     private UserAccount creator;
 
     @Enumerated(EnumType.STRING)
@@ -52,12 +46,20 @@ public class ExportJob {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    public ExportJob(Long contestId, Long createdBy, ExportFormat format, String customPrompt, Instant createdAt) {
-        this.contestId = contestId;
-        this.createdBy = createdBy;
+    public ExportJob(Contest contest, UserAccount creator, ExportFormat format, String customPrompt, Instant createdAt) {
+        this.contest = contest;
+        this.creator = creator;
         this.format = format;
         this.customPrompt = customPrompt;
         this.createdAt = createdAt;
+    }
+
+    public Long getContestId() {
+        return contest.getId();
+    }
+
+    public Long getCreatedBy() {
+        return creator.getId();
     }
 
 }

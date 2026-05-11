@@ -19,7 +19,7 @@ import com.launchgate.mentoring.entity.MentorComment;
 import com.launchgate.mentoring.repository.MentorAssignmentRepository;
 import com.launchgate.mentoring.repository.MentorCallRepository;
 import com.launchgate.mentoring.repository.MentorCommentRepository;
-import com.launchgate.submission.service.SubmissionCatalog;
+import com.launchgate.submission.service.SubmissionReaderService;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
@@ -36,22 +36,23 @@ public class MentoringService {
     private final TeamService teamService;
     private final ContestRolePolicy rolePolicy;
     private final UserService userService;
-    private final SubmissionCatalog submissionCatalog;
+    private final SubmissionReaderService submissionReaderService;
     private final Clock clock;
 
     @Transactional
     public MentorAssignmentResponse assign(AuthenticatedUser organizer, AssignMentorRequest request) {
         var team = teamService.getTeam(request.teamId());
         rolePolicy.requireAny(team.getContestId(), organizer.id(), ContestRole.CREATOR, ContestRole.ADMIN);
-        var mentorId = userService.findUserId(request.mentorUserId());
-        if (!rolePolicy.hasAny(team.getContestId(), mentorId, ContestRole.MENTOR)) {
+        var mentor = userService.getUserById(request.mentorUserId());
+        if (!rolePolicy.hasAny(team.getContestId(), mentor.getId(), ContestRole.MENTOR)) {
             throw new DomainException("mentor_role_required", "Target user must have MENTOR role in contest");
         }
-        var assignment = assignmentRepository.findByTeamIdAndMentorId(team.getId(), mentorId)
+
+        var assignment = assignmentRepository.findByTeam_IdAndMentor_Id(team.getId(), mentor.getId())
                 .orElseGet(() -> assignmentRepository.save(new MentorAssignment(
-                        team.getContestId(),
-                        team.getId(),
-                        mentorId,
+                        team.getContest(),
+                        team,
+                        mentor,
                         Instant.now(clock)
                 )));
         return MentoringMapper.toResponse(assignment);
@@ -59,33 +60,37 @@ public class MentoringService {
 
     @Transactional(readOnly = true)
     public List<MentorAssignmentResponse> myTeams(AuthenticatedUser mentor) {
-        return assignmentRepository.findAllByMentorId(mentor.id()).stream().map(MentoringMapper::toResponse).toList();
+        return assignmentRepository.findAllByMentor_Id(mentor.id()).stream()
+                .map(MentoringMapper::toResponse)
+                .toList();
     }
 
     @Transactional(readOnly = true)
     public List<MentorCallResponse> myCalls(AuthenticatedUser mentor) {
-        return callRepository.findAllByMentorIdOrderByStartsAtAsc(mentor.id()).stream()
+        return callRepository.findAllByMentor_IdOrderByStartsAtAsc(mentor.id()).stream()
                 .map(MentoringMapper::toResponse)
                 .toList();
     }
 
     @Transactional(readOnly = true)
     public List<MentorCommentResponse> comments(AuthenticatedUser user, Long stageSubmissionId) {
-        var submission = submissionCatalog.requireSubmission(stageSubmissionId);
-        var project = submissionCatalog.requireProject(submission.getProjectId());
-        if (project.getTeamId() == null) {
+        var submission = submissionReaderService.getSubmissionById(stageSubmissionId);
+        var project = submissionReaderService.getProjectById(submission.getProjectId());
+        if (project.getTeam() == null) {
             throw new ForbiddenException("Mentor comments are available only for team submissions");
         }
-        var canRead = assignmentRepository.existsByTeamIdAndMentorId(project.getTeamId(), user.id())
-                || teamService.isMember(project.getTeamId(), user.id());
+
+        var canRead = assignmentRepository.existsByTeam_IdAndMentor_Id(project.getTeam().getId(), user.id())
+                || teamService.isMember(project.getTeam().getId(), user.id());
         if (!canRead) {
             throw new ForbiddenException("No access to mentor comments");
         }
-        return commentRepository.findAllByStageSubmissionIdOrderByCreatedAtDesc(stageSubmissionId).stream()
+
+        return commentRepository.findAllByStageSubmission_IdOrderByCreatedAtDesc(stageSubmissionId).stream()
                 .map(comment -> new MentorCommentResponse(
                         comment.getId(),
-                        comment.getStageSubmissionId(),
-                        comment.getMentorId(),
+                        comment.getStageSubmission().getId(),
+                        comment.getMentor().getId(),
                         comment.getText(),
                         comment.getCreatedAt()
                 ))
@@ -94,41 +99,46 @@ public class MentoringService {
 
     @Transactional(readOnly = true)
     public List<MentorCallResponse> teamCalls(AuthenticatedUser user, Long teamId) {
-        var canRead = assignmentRepository.existsByTeamIdAndMentorId(teamId, user.id())
+        var canRead = assignmentRepository.existsByTeam_IdAndMentor_Id(teamId, user.id())
                 || teamService.isMember(teamId, user.id());
         if (!canRead) {
             throw new ForbiddenException("No access to mentor calls");
         }
-        return callRepository.findAllByTeamIdOrderByStartsAtAsc(teamId).stream()
+
+        return callRepository.findAllByTeam_IdOrderByStartsAtAsc(teamId).stream()
                 .map(MentoringMapper::toResponse)
                 .toList();
     }
 
     @Transactional(readOnly = true)
     public com.launchgate.submission.dto.StageSubmissionResponse stageSubmission(AuthenticatedUser user, Long stageSubmissionId) {
-        var submission = submissionCatalog.requireSubmission(stageSubmissionId);
-        var project = submissionCatalog.requireProject(submission.getProjectId());
-        if (project.getTeamId() == null) {
+        var submission = submissionReaderService.getSubmissionById(stageSubmissionId);
+        var project = submissionReaderService.getProjectById(submission.getProjectId());
+        if (project.getTeam() == null) {
             throw new ForbiddenException("Mentor can open only team submissions");
         }
-        var canRead = assignmentRepository.existsByTeamIdAndMentorId(project.getTeamId(), user.id())
-                || teamService.isMember(project.getTeamId(), user.id());
+
+        var canRead = assignmentRepository.existsByTeam_IdAndMentor_Id(project.getTeam().getId(), user.id())
+                || teamService.isMember(project.getTeam().getId(), user.id());
         if (!canRead) {
             throw new ForbiddenException("No access to stage submission");
         }
-        return submissionCatalog.submissionResponse(stageSubmissionId);
+
+        return submissionReaderService.getSubmissionResponse(stageSubmissionId);
     }
 
     @Transactional
     public Long comment(AuthenticatedUser mentor, MentorCommentRequest request) {
-        var submission = submissionCatalog.requireSubmission(request.stageSubmissionId());
-        var project = submissionCatalog.requireProject(submission.getProjectId());
-        if (project.getTeamId() == null || !assignmentRepository.existsByTeamIdAndMentorId(project.getTeamId(), mentor.id())) {
+        var submission = submissionReaderService.getSubmissionById(request.stageSubmissionId());
+        var project = submissionReaderService.getProjectById(submission.getProjectId());
+        if (project.getTeam() == null || !assignmentRepository.existsByTeam_IdAndMentor_Id(project.getTeam().getId(), mentor.id())) {
             throw new ForbiddenException("Mentor is not assigned to this team submission");
         }
+
+        var mentorUser = userService.getUserById(mentor.id());
         return commentRepository.save(new MentorComment(
-                request.stageSubmissionId(),
-                mentor.id(),
+                submission,
+                mentorUser,
                 request.text(),
                 Instant.now(clock)
         )).getId();
@@ -136,15 +146,18 @@ public class MentoringService {
 
     @Transactional
     public Long scheduleCall(AuthenticatedUser mentor, ScheduleCallRequest request) {
-        if (!assignmentRepository.existsByTeamIdAndMentorId(request.teamId(), mentor.id())) {
+        if (!assignmentRepository.existsByTeam_IdAndMentor_Id(request.teamId(), mentor.id())) {
             throw new ForbiddenException("Mentor is not assigned to this team");
         }
         if (!request.endsAt().isAfter(request.startsAt())) {
             throw new DomainException("bad_call_time", "Call end time must be after start time");
         }
+
+        var team = teamService.getTeam(request.teamId());
+        var mentorUser = userService.getUserById(mentor.id());
         return callRepository.save(new MentorCall(
-                request.teamId(),
-                mentor.id(),
+                team,
+                mentorUser,
                 request.startsAt(),
                 request.endsAt(),
                 request.link(),

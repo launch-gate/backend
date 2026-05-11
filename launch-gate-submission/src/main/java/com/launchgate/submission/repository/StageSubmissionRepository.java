@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StageSubmissionRepository extends JpaRepository<StageSubmission, Long> {
-    Optional<StageSubmission> findByProjectIdAndStageId(Long projectId, Long stageId);
+    Optional<StageSubmission> findByProject_IdAndStage_Id(Long projectId, Long stageId);
 
-    List<StageSubmission> findAllByStageId(Long stageId);
+    List<StageSubmission> findAllByStage_Id(Long stageId);
 
-    long countByStageIdAndStatus(Long stageId, SubmissionStatus status);
+    long countByStage_IdAndStatus(Long stageId, SubmissionStatus status);
 }

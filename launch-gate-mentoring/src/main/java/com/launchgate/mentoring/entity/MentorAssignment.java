@@ -27,35 +27,38 @@ public class MentorAssignment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "contest_id", nullable = false)
-    private Long contestId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contest_id", insertable = false, updatable = false)
+    @JoinColumn(name = "contest_id", nullable = false)
     private Contest contest;
 
-    @Column(name = "team_id", nullable = false)
-    private Long teamId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id", insertable = false, updatable = false)
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
-    @Column(name = "mentor_id", nullable = false)
-    private Long mentorId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mentor_id", insertable = false, updatable = false)
+    @JoinColumn(name = "mentor_id", nullable = false)
     private UserAccount mentor;
 
     @Column(name = "assigned_at", nullable = false)
     private Instant assignedAt;
 
-    public MentorAssignment(Long contestId, Long teamId, Long mentorId, Instant assignedAt) {
-        this.contestId = contestId;
-        this.teamId = teamId;
-        this.mentorId = mentorId;
+    public MentorAssignment(Contest contest, Team team, UserAccount mentor, Instant assignedAt) {
+        this.contest = contest;
+        this.team = team;
+        this.mentor = mentor;
         this.assignedAt = assignedAt;
+    }
+
+    public Long getContestId() {
+        return contest.getId();
+    }
+
+    public Long getTeamId() {
+        return team.getId();
+    }
+
+    public Long getMentorId() {
+        return mentor.getId();
     }
 
 }

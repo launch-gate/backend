@@ -12,9 +12,9 @@ public final class EvaluationMapper {
     public static AssignmentResponse toAssignmentResponse(ReviewAssignment assignment) {
         return new AssignmentResponse(
                 assignment.getId(),
-                assignment.getStageId(),
-                assignment.getSubmissionId(),
-                assignment.getExpertId(),
+                assignment.getStage().getId(),
+                assignment.getSubmission().getId(),
+                assignment.getExpert().getId(),
                 assignment.getStatus()
         );
     }
@@ -22,8 +22,8 @@ public final class EvaluationMapper {
     public static ReviewResponse toReviewResponse(ReviewAssignment assignment) {
         return new ReviewResponse(
                 assignment.getId(),
-                assignment.getSubmissionId(),
-                assignment.getExpertId(),
+                assignment.getSubmission().getId(),
+                assignment.getExpert().getId(),
                 assignment.getStatus(),
                 assignment.getScore(),
                 assignment.getComment(),

@@ -16,7 +16,7 @@ public record StageRequest(
         @Schema(description = "Stage deadline in UTC", example = "2026-05-10T18:00:00Z")
         Instant deadlineAt,
         boolean eliminating,
-        @Schema(description = "Stage scoring scale", example = "HUNDRED")
+        @Schema(description = "Stage scoring scale", example = "POINTS_100")
         @NotNull ScoreScale scoreScale,
         @Schema(description = "Optional position inside contest. If omitted, stage is appended", example = "2")
         Integer order

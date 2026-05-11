@@ -35,12 +35,6 @@ public class EvaluationController {
         return evaluationService.assign(user, request);
     }
 
-    @PostMapping("/organizer/evaluations/{submissionId}/ai-review")
-    @Operation(summary = "Create AI review placeholder for a submission")
-    public AiReviewCreatedResponse aiReview(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long submissionId) {
-        return new AiReviewCreatedResponse(evaluationService.createAiReview(user, submissionId));
-    }
-
     @GetMapping("/expert/reviews")
     @Operation(summary = "List review assignments of current expert")
     public AssignmentListResponse myReviews(

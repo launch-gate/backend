@@ -24,11 +24,13 @@ public class SubmissionValue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "submission_id", nullable = false)
-    private Long submissionId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submission_id", nullable = false)
+    private StageSubmission submission;
 
-    @Column(name = "field_id", nullable = false)
-    private Long fieldId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "field_id", nullable = false)
+    private SubmissionField field;
 
     @Column(name = "value_text", columnDefinition = "text")
     private String valueText;
@@ -36,21 +38,21 @@ public class SubmissionValue {
     @Column(name = "file_ids", columnDefinition = "text")
     private String fileIds;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "submission_id", insertable = false, updatable = false)
-    private StageSubmission submission;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "field_id", insertable = false, updatable = false)
-    private SubmissionField field;
-
-    public SubmissionValue(Long submissionId, Long fieldId) {
-        this.submissionId = submissionId;
-        this.fieldId = fieldId;
+    public SubmissionValue(StageSubmission submission, SubmissionField field) {
+        this.submission = submission;
+        this.field = field;
     }
 
     public void update(String valueText, String fileIds) {
         this.valueText = valueText;
         this.fileIds = fileIds;
+    }
+
+    public Long getSubmissionId() {
+        return submission.getId();
+    }
+
+    public Long getFieldId() {
+        return field.getId();
     }
 }

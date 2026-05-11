@@ -1,5 +1,6 @@
 package com.launchgate.evaluation.entity;
 
+import com.launchgate.contest.entity.stage.ContestStage;
 import com.launchgate.identity.entity.UserAccount;
 import com.launchgate.submission.entity.StageSubmission;
 import jakarta.persistence.Column;
@@ -29,14 +30,17 @@ public class ReviewAssignment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "stage_id", nullable = false)
-    private Long stageId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stage_id", nullable = false)
+    private ContestStage stage;
 
-    @Column(name = "submission_id", nullable = false)
-    private Long submissionId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submission_id", nullable = false)
+    private StageSubmission submission;
 
-    @Column(name = "expert_id", nullable = false)
-    private Long expertId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "expert_id", nullable = false)
+    private UserAccount expert;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 32)
@@ -54,18 +58,10 @@ public class ReviewAssignment {
     @Column(name = "finalized_at")
     private Instant finalizedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "submission_id", insertable = false, updatable = false)
-    private StageSubmission submission;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "expert_id", insertable = false, updatable = false)
-    private UserAccount expert;
-
-    public ReviewAssignment(Long stageId, Long submissionId, Long expertId, Instant assignedAt) {
-        this.stageId = stageId;
-        this.submissionId = submissionId;
-        this.expertId = expertId;
+    public ReviewAssignment(ContestStage stage, StageSubmission submission, UserAccount expert, Instant assignedAt) {
+        this.stage = stage;
+        this.submission = submission;
+        this.expert = expert;
         this.assignedAt = assignedAt;
     }
 
@@ -86,5 +82,17 @@ public class ReviewAssignment {
 
     public void finalizeAt(Instant now) {
         finalizedAt = now;
+    }
+
+    public Long getStageId() {
+        return stage.getId();
+    }
+
+    public Long getSubmissionId() {
+        return submission.getId();
+    }
+
+    public Long getExpertId() {
+        return expert.getId();
     }
 }

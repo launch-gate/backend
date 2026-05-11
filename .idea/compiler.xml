@@ -15,6 +15,7 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
         </processorPath>
+        <module name="launch-gate-ai-evaluation" />
         <module name="launch-gate-mentoring" />
         <module name="launch-gate-contest" />
         <module name="launch-gate-app" />
@@ -29,6 +30,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="launch-gate-ai-evaluation" options="-parameters" />
       <module name="launch-gate-app" options="-parameters" />
       <module name="launch-gate-common" options="-parameters" />
       <module name="launch-gate-contest" options="-parameters" />

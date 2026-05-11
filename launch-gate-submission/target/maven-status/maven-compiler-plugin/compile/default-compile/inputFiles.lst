@@ -13,6 +13,7 @@
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-submission/src/main/java/com/launchgate/submission/repository/ProjectRepository.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-submission/src/main/java/com/launchgate/submission/repository/StageSubmissionRepository.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-submission/src/main/java/com/launchgate/submission/repository/SubmissionValueRepository.java
-/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-submission/src/main/java/com/launchgate/submission/service/SubmissionCatalog.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-submission/src/main/java/com/launchgate/submission/service/SubmissionMapper.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-submission/src/main/java/com/launchgate/submission/service/SubmissionReaderService.java
 /Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-submission/src/main/java/com/launchgate/submission/service/SubmissionService.java
+/Users/vitaliykostin/Documents/IdeaProjects/launch-gate/launch-gate-submission/src/main/java/com/launchgate/submission/service/SubmissionValueValidationService.java

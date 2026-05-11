@@ -35,6 +35,11 @@
         </dependency>
         <dependency>
             <groupId>com.launchgate</groupId>
+            <artifactId>launch-gate-ai-evaluation</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.launchgate</groupId>
             <artifactId>launch-gate-mentoring</artifactId>
             <version>${project.version}</version>
         </dependency>

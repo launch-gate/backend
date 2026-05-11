@@ -166,13 +166,20 @@
 - изменение порядка;
 - создание нового поля;
 - редактирование существующего поля;
-- удаление поля.
+- удаление поля;
+- редактор нескольких критериев проверки внутри одного поля;
+- выбор допустимых форматов файлов из backend-справочника.
 
 ### Поведение
-- organizer видит полную модель поля, включая `criteriaDescription` и `expertNote`;
+- organizer видит полную модель поля, включая список `criteria[]` и `expertNote`;
 - participant видит только пользовательскую часть формы.
+- для upload-полей organizer может выбрать только поддержанные backend-форматы;
+- одно поле может содержать несколько критериев проверки;
+- критерии имеют собственный порядок внутри поля;
+- при сохранении значения участника backend сразу проверяет размер и формат прикрепленного файла.
 
 ### Endpoint'ы
+- `GET /api/v1/organizer/field-formats`
 - `GET /api/v1/organizer/stages/{stageId}/fields`
 - `GET /api/v1/contests/stages/{stageId}/fields`
 - `POST /api/v1/organizer/stages/{stageId}/fields`
@@ -189,10 +196,10 @@
 
 ### Поведение
 - organizer управляет ресурсами поштучно;
-- participant читает готовый набор ресурсов этапа.
+- participant читает готовый набор ресурсов этапа внутри payload самого stage;
+- отдельного публичного GET endpoint для resources нет.
 
 ### Endpoint'ы
-- `GET /api/v1/stages/{stageId}/resources`
 - `POST /api/v1/organizer/stages/{stageId}/resources`
 - `PATCH /api/v1/organizer/stages/{stageId}/resources/{resourceId}`
 - `DELETE /api/v1/organizer/stages/{stageId}/resources/{resourceId}`
@@ -245,13 +252,17 @@
 
 ### Поведение
 - участник сохраняет значения полей;
+- участник может:
+  - ввести текст;
+  - вставить обычный URL;
+  - вставить GitHub repository URL;
+  - приложить документы, изображения или видео только разрешенного формата;
 - после submit данные блокируются;
 - stage submission становится единицей проверки.
 
 ### Endpoint'ы
 - `GET /api/v1/contests/stages/{stageId}`
 - `GET /api/v1/contests/stages/{stageId}/fields`
-- `GET /api/v1/stages/{stageId}/resources`
 - `POST /api/v1/projects/{projectId}/stages/{stageId}/values`
 - `POST /api/v1/projects/{projectId}/stages/{stageId}/submit`
 
@@ -285,9 +296,40 @@
 ### Что находится на странице
 - список submission;
 - назначение экспертов;
-- запуск AI review.
+- запуск AI review;
+- просмотр уже сохраненного AI review;
+- детальный результат по каждому полю и каждому критерию.
+
+### Поведение AI review
+- organizer или expert открывает решение;
+- фронтенд сначала делает `GET`, чтобы понять, есть ли уже сохраненный AI review;
+- если review есть, показывается история результатов;
+- если review нет, доступна кнопка запуска;
+- после `POST` backend:
+  - проходит по всем полям submission;
+  - выбирает стратегию обработки;
+  - отправляет в python AI service только поддержанные форматы;
+  - сохраняет результат по каждому полю и критерию.
+
+### Что сейчас поддерживает AI review
+- прямой текст из формы;
+- документы `DOC`, `DOCX`, `PDF`, `TXT`;
+- поле типа `GITHUB_REPOSITORY`.
+
+### Что пока не поддерживается AI review
+- `PPTX`, `CSV`, `XLSX`;
+- фотографии;
+- видео;
+- любые другие форматы вне whitelist.
+
+Для неподдерживаемых форматов backend не падает, а сохраняет статус `UNSUPPORTED_FORMAT`.
+
+### Внешние AI endpoint'ы
+- проверка репозитория: `POST /analyze/repository`
+- проверка текста: `POST /analyze/text`
 
 ### Endpoint'ы
+- `GET /api/v1/organizer/evaluations/{submissionId}/ai-review`
 - `POST /api/v1/organizer/evaluations/assignments`
 - `POST /api/v1/organizer/evaluations/{submissionId}/ai-review`
 
@@ -355,6 +397,11 @@
 - upload файлов для ресурсов;
 - upload файлов для submission;
 - получение временной ссылки на скачивание или просмотр.
+
+### Поведение
+- frontend сначала грузит файл и получает `fileId`;
+- потом этот `fileId` используется внутри resource или `SubmissionValue`;
+- backend не принимает файлы для submission "вслепую": соответствие формату и размеру проверяется уже в момент сохранения значения поля.
 
 ### Endpoint'ы
 - `POST /api/v1/files`

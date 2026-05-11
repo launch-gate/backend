@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserContactRepository extends JpaRepository<UserContact, Long> {
-    List<UserContact> findAllByUserId(Long userId);
+    List<UserContact> findAllByUser_Id(Long userId);
 
-    void deleteAllByUserId(Long userId);
+    void deleteAllByUser_Id(Long userId);
 }

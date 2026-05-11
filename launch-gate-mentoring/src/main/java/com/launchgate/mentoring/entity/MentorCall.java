@@ -26,18 +26,12 @@ public class MentorCall {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "team_id", nullable = false)
-    private Long teamId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id", insertable = false, updatable = false)
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
-    @Column(name = "mentor_id", nullable = false)
-    private Long mentorId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mentor_id", insertable = false, updatable = false)
+    @JoinColumn(name = "mentor_id", nullable = false)
     private UserAccount mentor;
 
     @Column(name = "starts_at", nullable = false)
@@ -52,13 +46,21 @@ public class MentorCall {
     @Column(columnDefinition = "text")
     private String notes;
 
-    public MentorCall(Long teamId, Long mentorId, Instant startsAt, Instant endsAt, String link, String notes) {
-        this.teamId = teamId;
-        this.mentorId = mentorId;
+    public MentorCall(Team team, UserAccount mentor, Instant startsAt, Instant endsAt, String link, String notes) {
+        this.team = team;
+        this.mentor = mentor;
         this.startsAt = startsAt;
         this.endsAt = endsAt;
         this.link = link;
         this.notes = notes;
+    }
+
+    public Long getTeamId() {
+        return team.getId();
+    }
+
+    public Long getMentorId() {
+        return mentor.getId();
     }
 
 }
