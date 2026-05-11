@@ -38,6 +38,7 @@
         <poi.version>5.4.0</poi.version>
         <pdfbox.version>3.0.4</pdfbox.version>
         <springdoc.version>3.0.2</springdoc.version>
+        <commons-csv.version>1.10.0</commons-csv.version>
     </properties>
 
     <dependencies>

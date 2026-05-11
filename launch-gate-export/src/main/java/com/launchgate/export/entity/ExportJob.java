@@ -13,15 +13,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.Instant;
 
+/**
+ * Сущность задачи на выгрузку.
+ */
 @Entity
 @Table(schema = "exporting", name = "export_jobs")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class ExportJob {
 
     @Id
