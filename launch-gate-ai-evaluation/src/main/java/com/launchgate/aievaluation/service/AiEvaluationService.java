@@ -10,6 +10,7 @@ import com.launchgate.aievaluation.entity.AiFieldReviewStatus;
 import com.launchgate.aievaluation.entity.AiReviewSourceType;
 import com.launchgate.aievaluation.entity.AiSubmissionReview;
 import com.launchgate.aievaluation.repository.AiSubmissionReviewRepository;
+import com.launchgate.aievaluation.exception.InvalidAiReviewRequestException;
 import com.launchgate.aievaluation.service.client.AiProviderReviewResult;
 import com.launchgate.aievaluation.service.client.AiReviewHttpClient;
 import com.launchgate.aievaluation.service.model.PreparedFieldPayload;
@@ -134,6 +135,24 @@ public class AiEvaluationService {
                 case REPOSITORY -> aiReviewHttpClient.reviewRepository(prepared.fieldTitle(), prepared.payloadValue(), criteria);
             };
             return createFieldReview(review, prepared, createCompletedCriterionReviews(criteria, providerResults));
+        } catch (InvalidAiReviewRequestException exception) {
+            return createFieldReview(
+                    review,
+                    new PreparedFieldPayload(
+                            prepared.field(),
+                            prepared.fieldOrder(),
+                            prepared.fieldTitle(),
+                            prepared.fieldType(),
+                            prepared.submissionValue(),
+                            AiFieldReviewStatus.FAILED,
+                            prepared.sourceType(),
+                            exception.getMessage(),
+                            prepared.payloadKind(),
+                            prepared.payloadValue(),
+                            prepared.criteria()
+                    ),
+                    createFailedCriterionReviews(criteria, exception.getMessage())
+            );
         } catch (Exception exception) {
             return createFieldReview(
                     review,
