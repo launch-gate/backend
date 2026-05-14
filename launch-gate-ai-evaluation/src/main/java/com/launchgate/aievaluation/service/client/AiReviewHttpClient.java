@@ -95,6 +95,7 @@ public class AiReviewHttpClient {
     }
 
     private void validateRequest(AiProviderReviewRequest request, String payloadKind) {
+        log.info("Request: payloadKind = {}, title = {}, textContent = {}, repo = {}, criteria = {}", payloadKind, request.title(), request.textContent(), request.repoUrl(), request.criteria());
         var invalidFields = new ArrayList<String>();
 
         if (request.title() == null || request.title().isBlank()) {
