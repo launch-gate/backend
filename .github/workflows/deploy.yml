@@ -10,6 +10,7 @@ jobs:
       contents: read
     env:
       DEPLOY_PATH: /opt/backend
+      SHARED_NETWORK: launch-gate-shared
     steps:
       - name: Ensure develop branch
         run: |
@@ -48,6 +49,11 @@ jobs:
       - name: Ensure target directory exists
         run: |
           ssh -p "${{ secrets.DEPLOY_PORT }}" "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" "mkdir -p ${DEPLOY_PATH}"
+
+      - name: Ensure shared docker network exists
+        run: |
+          ssh -p "${{ secrets.DEPLOY_PORT }}" "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
+            "docker network inspect ${SHARED_NETWORK} >/dev/null 2>&1 || docker network create ${SHARED_NETWORK}"
 
       - name: Upload backend bundle
         run: |

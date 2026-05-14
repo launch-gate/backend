@@ -8,7 +8,7 @@ public record AiProviderReviewRequest(
         String title,
         @JsonProperty("repo_url")
         String repoUrl,
-        @JsonProperty("text_content")
+        @JsonProperty("textContent")
         String textContent,
         @JsonProperty("criteria")
         List<AiProviderCriterionRequest> criteria

@@ -23,11 +23,16 @@ services:
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
       MINIO_BUCKET: ${MINIO_BUCKET}
       CORS_ALLOWED_ORIGIN_PATTERNS: ${CORS_ALLOWED_ORIGIN_PATTERNS}
+      AI_EVALUATION_REPOSITORY_REVIEW_URL: ${AI_EVALUATION_REPOSITORY_REVIEW_URL:-http://ai-evaluation:8000/analyze/repository}
+      AI_EVALUATION_TEXT_REVIEW_URL: ${AI_EVALUATION_TEXT_REVIEW_URL:-http://ai-evaluation:8000/analyze/text}
     ports:
       - "${APP_PORT:-8090}:8090"
     depends_on:
       - postgres
       - minio
+    networks:
+      - default
+      - ai_shared
 
   postgres:
     image: postgres:17
@@ -61,3 +66,8 @@ services:
 volumes:
   postgres_data:
   minio_data:
+
+networks:
+  ai_shared:
+    name: launch-gate-shared
+    external: true
