@@ -31,11 +31,6 @@ public class FileConstant {
     public String XLSX_EXTENSION = "xlsx";
 
     /**
-     * Разделитель расширения файла (точка).
-     */
-    public String DOT_CONSTANT = ".";
-
-    /**
      * MIME-тип для передачи документов в формате (.xlsx).
      */
     public MediaType MEDIA_TYPE_XLSX = MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

@@ -4,6 +4,7 @@ import com.launchgate.evaluation.dto.ReviewSummary;
 import com.launchgate.export.mapper.ExportMapper;
 import com.launchgate.export.service.ExportService;
 import com.launchgate.export.utils.ExportUtils;
+import com.launchgate.identity.service.UserService;
 import com.launchgate.submission.service.SubmissionReaderService;
 import lombok.RequiredArgsConstructor;
 
@@ -37,6 +38,7 @@ public class ExportServiceImpl implements ExportService {
     private final SubmissionReaderService submissionReaderService;
     private final EvaluationCatalog evaluationCatalog;
     private final ExportJobRepository exportJobRepository;
+    private final UserService userService;
     private final Clock clock;
 
     @Override
@@ -51,20 +53,19 @@ public class ExportServiceImpl implements ExportService {
         };
     }
 
-    @Override
+    @Transactional
     public CustomExportResponse createCustomExport(AuthenticatedUser user, Long contestId, CustomExportRequest request) {
         rolePolicy.requireAny(contestId, user.id(), ContestRole.CREATOR, ContestRole.ADMIN);
-
-        ExportJob job = new ExportJob(contestId, user.id(), request.format(), request.prompt(), Instant.now(clock));
-        exportJobRepository.save(job);
-
-        final String aiPreview = "Задача на пользовательский экспорт принята. Адаптер ИИ еще не подключен; по умолчанию будут использованы стандартные колонки рейтинга";
-        return new CustomExportResponse(job.getId(), aiPreview);
+        var contest = contestReaderService.getContestById(contestId);
+        var creator = userService.getUserById(user.id());
+        var job = exportJobRepository.save(new ExportJob(contest, creator, request.format(), request.prompt(), Instant.now(clock)));
+        var preview = "Custom export job accepted. AI adapter is not connected yet; default ranking columns will be used as fallback.";
+        return new CustomExportResponse(job.getId(), preview);
     }
 
     private List<RankingRow> rankingRows(Long contestId) {
         return contestReaderService.stages(contestId).stream()
-                .flatMap(stage -> submissionReaderService.submittedByStage(stage.getId()).stream()
+                .flatMap(stage -> submissionReaderService.getSubmittedSubmissionsByStage(stage.getId()).stream()
                         .map(submission -> rankingRow(stage, submission)))
                 .sorted(Comparator.comparing(RankingRow::score).reversed())
                 .toList();
