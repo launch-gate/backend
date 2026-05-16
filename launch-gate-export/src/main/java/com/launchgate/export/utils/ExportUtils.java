@@ -86,7 +86,8 @@ public class ExportUtils {
 
             return out.toByteArray();
         } catch (Exception e) {
-            throw new LaunchGateException("Ошибка при генерации CSV файла", e);
+            log.error("Ошибка при генерации CSV файла", e);
+            throw new LaunchGateException("Ошибка при генерации CSV файла");
         }
     }
 
@@ -122,7 +123,8 @@ public class ExportUtils {
             workbook.write(out);
             return out.toByteArray();
         } catch (Exception exception) {
-            throw new LaunchGateException("Ошибка во время создания xlsx файла", exception);
+            log.error("Ошибка во время создания xlsx файла", exception);
+            throw new LaunchGateException("Ошибка во время создания xlsx файла");
         }
     }
 }

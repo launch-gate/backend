@@ -34,18 +34,23 @@ public class GlobalExceptionHandler {
         return error(HttpStatus.BAD_REQUEST, exception.code(), exception.getMessage(), Map.of());
     }
 
+    @ExceptionHandler(LaunchGateException.class)
+    ResponseEntity<ApiError> domain(LaunchGateException exception) {
+        return error(HttpStatus.BAD_REQUEST, exception.code(), exception.getMessage(), Map.of());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     ResponseEntity<ApiError> invalidBody(MethodArgumentNotValidException exception) {
         var details = new LinkedHashMap<String, String>();
         for (var fieldError : exception.getBindingResult().getFieldErrors()) {
             details.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        return error(HttpStatus.BAD_REQUEST, "validation_failed", "Request body is invalid", details);
+        return error(HttpStatus.BAD_REQUEST, ErrorCode.validationErrorCode, "Request body is invalid", details);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     ResponseEntity<ApiError> invalidParameter(ConstraintViolationException exception) {
-        return error(HttpStatus.BAD_REQUEST, "validation_failed", exception.getMessage(), Map.of());
+        return error(HttpStatus.BAD_REQUEST, ErrorCode.validationErrorCode, exception.getMessage(), Map.of());
     }
 
     private ResponseEntity<ApiError> error(HttpStatus status, String code, String message, Map<String, String> details) {

@@ -4,6 +4,7 @@ import com.launchgate.common.LaunchGateException;
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Конфигурация MinIO.
  */
+@Slf4j
 @Configuration
 @EnableConfigurationProperties(FileStorageProperties.class)
 public class MinioConfiguration {
@@ -36,7 +38,8 @@ public class MinioConfiguration {
                         .build());
             }
         } catch (Exception exception) {
-            throw new LaunchGateException("Не удалось инициализировать бакет: " + properties.bucket(), exception);
+            log.error("Не удалось инициализировать бакет: {}", properties.bucket(), exception);
+            throw new LaunchGateException("Не удалось инициализировать бакет: %s".formatted(properties.bucket()));
         }
 
         return minioClient;

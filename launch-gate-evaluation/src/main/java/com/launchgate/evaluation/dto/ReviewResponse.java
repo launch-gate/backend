@@ -5,21 +5,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-@Schema(description = "Expert review response")
+/**
+ * Результат экспертной проверки.
+ * @param assignmentId идентификатор назначения на проверку.
+ * @param submissionId идентификатор отправленного решения этапа.
+ * @param expertId идентификатор эксперта.
+ * @param status текущий статус проверки.
+ * @param score оценка.
+ * @param comment комментарии по проверке.
+ * @param finalizedAt дата и время завершения проверки.
+ */
+@Schema(description = "Данные экспертной проверки")
 public record ReviewResponse(
-        @Schema(description = "Review assignment id", example = "44")
+        @Schema(description = "Идентификатор назначения на проверку", example = "44")
         Long assignmentId,
-        @Schema(description = "Submitted stage solution id", example = "15")
+        @Schema(description = "Идентификатор отправленного решения этапа", example = "15")
         Long submissionId,
-        @Schema(description = "Expert user id", example = "8")
+        @Schema(description = "Идентификатор эксперта", example = "8")
         Long expertId,
-        @Schema(description = "Current review status")
+        @Schema(description = "Текущий статус проверки")
         ReviewStatus status,
-        @Schema(description = "Saved score", example = "86.50")
+        @Schema(description = "Оценка", example = "86.50")
         BigDecimal score,
-        @Schema(description = "Saved review comment")
+        @Schema(description = "Комментарии по проверке")
         String comment,
-        @Schema(description = "Review finalization timestamp")
+        @Schema(description = "Дата и время завершения проверки")
         Instant finalizedAt
 ) {
 }
