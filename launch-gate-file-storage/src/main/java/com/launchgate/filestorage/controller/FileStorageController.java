@@ -16,21 +16,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Контроллер для работы с файловым хранилищем.
+ */
 @RestController
 @RequestMapping("/api/v1/files")
 @RequiredArgsConstructor
-@Tag(name = "Files", description = "File upload metadata and download URLs")
+@Tag(name = "Файловое хранилище", description = "Загрузка файлов")
 public class FileStorageController {
     private final FileStorageService fileStorageService;
 
     @PostMapping
-    @Operation(summary = "Upload file and store metadata")
+    @Operation(summary = "Загрузить файл и получить мета данные")
     public FileResponse upload(@AuthenticationPrincipal AuthenticatedUser user, @RequestParam("file") MultipartFile file) {
         return fileStorageService.upload(user, file);
     }
 
     @GetMapping("/{fileId}/download-url")
-    @Operation(summary = "Generate download URL for uploaded file")
+    @Operation(summary = "Получить ссылку на загруженный файл")
     public DownloadUrlResponse downloadUrl(@PathVariable Long fileId) {
         return fileStorageService.downloadUrl(fileId);
     }

@@ -1,7 +1,7 @@
 package com.launchgate.aievaluation.service.extractor;
 
 import com.launchgate.common.DomainException;
-import com.launchgate.filestorage.service.StoredFileContent;
+import com.launchgate.filestorage.dto.StoredFileContent;
 import java.io.ByteArrayInputStream;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;

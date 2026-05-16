@@ -1,7 +1,7 @@
 package com.launchgate.aievaluation.service.extractor;
 
 import com.launchgate.common.DomainException;
-import com.launchgate.filestorage.service.StoredFileContent;
+import com.launchgate.filestorage.dto.StoredFileContent;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Component;
