@@ -1,6 +1,6 @@
 package com.launchgate.aievaluation.service.extractor;
 
-import com.launchgate.filestorage.service.StoredFileContent;
+import com.launchgate.filestorage.dto.StoredFileContent;
 import java.nio.charset.StandardCharsets;
 import org.springframework.stereotype.Component;
 

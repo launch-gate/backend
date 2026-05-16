@@ -1,6 +1,6 @@
 package com.launchgate.aievaluation.service.extractor;
 
-import com.launchgate.filestorage.service.StoredFileContent;
+import com.launchgate.filestorage.dto.StoredFileContent;
 import java.util.Locale;
 
 public final class FileTextExtractorSupport {

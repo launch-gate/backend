@@ -1,5 +1,10 @@
 package com.launchgate.filestorage.dto;
 
-
-public record DownloadUrlResponse(String url) {
+/**
+ * Ссылка для получение файла.
+ * @param url ссылка.
+ */
+public record DownloadUrlResponse(
+        String url
+) {
 }
