@@ -31,7 +31,9 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
         ContestMetrics metrics = contestReaderService.metrics(contestId);
 
-        Long submittedWorks = submissionReaderService.countAllSubmittedStage(contestId);
+        Long submittedWorks = contestReaderService.stages(contestId).stream()
+                .mapToLong(stage -> submissionReaderService.getSubmittedSubmissionCountByStage(stage.getId()))
+                .sum();
 
         return new ContestAnalyticsResponse(metrics.registrations(), metrics.teams(), metrics.stages(), submittedWorks);
     }
