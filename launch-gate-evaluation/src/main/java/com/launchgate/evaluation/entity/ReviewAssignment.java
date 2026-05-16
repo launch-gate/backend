@@ -20,6 +20,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Назначение на проверку.
+ */
 @Entity
 @Table(schema = "evaluation", name = "review_assignments")
 @Getter

@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/organizer/contests/{contestId}")
 @RequiredArgsConstructor
-@Tag(name = "Экспорт данных", description = "API для получения статистики и выгрузок по конкурсам")
+@Tag(name = "Выгрузка работ", description = "API для получения статистики и выгрузок по конкурсам")
 public class ExportController {
 
     private final ExportService exportService;

@@ -1,6 +1,7 @@
 package com.launchgate.export.service.impl;
 
 import com.launchgate.evaluation.dto.ReviewSummary;
+import com.launchgate.evaluation.service.EvaluationReviewService;
 import com.launchgate.export.mapper.ExportMapper;
 import com.launchgate.export.service.ExportService;
 import com.launchgate.export.utils.ExportUtils;
@@ -16,7 +17,6 @@ import com.launchgate.contest.service.ContestReaderService;
 import com.launchgate.contest.entity.ContestRole;
 import com.launchgate.contest.entity.stage.ContestStage;
 import com.launchgate.contest.service.ContestRolePolicy;
-import com.launchgate.evaluation.service.EvaluationCatalog;
 import com.launchgate.identity.dto.AuthenticatedUser;
 import com.launchgate.submission.dto.SubmissionSummary;
 import java.time.Clock;
@@ -36,7 +36,7 @@ public class ExportServiceImpl implements ExportService {
     private final ContestReaderService contestReaderService;
     private final ContestRolePolicy rolePolicy;
     private final SubmissionReaderService submissionReaderService;
-    private final EvaluationCatalog evaluationCatalog;
+    private final EvaluationReviewService evaluationReviewService;
     private final ExportJobRepository exportJobRepository;
     private final UserService userService;
     private final Clock clock;
@@ -72,7 +72,7 @@ public class ExportServiceImpl implements ExportService {
     }
 
     private RankingRow rankingRow(ContestStage stage, SubmissionSummary submission) {
-        ReviewSummary review = evaluationCatalog.summary(submission.submissionId());
+        ReviewSummary review = evaluationReviewService.summary(submission.submissionId());
         return ExportMapper.toRankingRow(stage, submission, review);
     }
 }

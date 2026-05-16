@@ -1,15 +1,14 @@
-package com.launchgate.evaluation.service;
+package com.launchgate.evaluation.mapper;
 
 import com.launchgate.evaluation.dto.AssignmentResponse;
 import com.launchgate.evaluation.dto.ReviewResponse;
 import com.launchgate.evaluation.entity.ReviewAssignment;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class EvaluationMapper {
+@UtilityClass
+public class EvaluationMapper {
 
-    public static AssignmentResponse toAssignmentResponse(ReviewAssignment assignment) {
+    public AssignmentResponse toAssignmentResponse(ReviewAssignment assignment) {
         return new AssignmentResponse(
                 assignment.getId(),
                 assignment.getStage().getId(),
@@ -19,7 +18,7 @@ public final class EvaluationMapper {
         );
     }
 
-    public static ReviewResponse toReviewResponse(ReviewAssignment assignment) {
+    public ReviewResponse toReviewResponse(ReviewAssignment assignment) {
         return new ReviewResponse(
                 assignment.getId(),
                 assignment.getSubmission().getId(),

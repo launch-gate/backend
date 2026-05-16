@@ -7,11 +7,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReviewAssignmentRepository extends JpaRepository<ReviewAssignment, Long> {
-    List<ReviewAssignment> findAllByExpert_Id(Long expertId);
+    List<ReviewAssignment> findAllByExpertId(Long expertId);
 
-    List<ReviewAssignment> findAllByExpert_IdAndStatus(Long expertId, ReviewStatus status);
+    List<ReviewAssignment> findAllByExpertIdAndStatus(Long expertId, ReviewStatus status);
 
-    List<ReviewAssignment> findAllBySubmission_Id(Long submissionId);
+    List<ReviewAssignment> findAllBySubmissionId(Long submissionId);
 
-    Optional<ReviewAssignment> findBySubmission_IdAndExpert_Id(Long submissionId, Long expertId);
+    Optional<ReviewAssignment> findBySubmissionIdAndExpertId(Long submissionId, Long expertId);
 }

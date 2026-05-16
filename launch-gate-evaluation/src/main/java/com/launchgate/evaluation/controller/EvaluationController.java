@@ -1,5 +1,6 @@
 package com.launchgate.evaluation.controller;
 
+import com.launchgate.submission.dto.StageSubmissionResponse;
 import lombok.RequiredArgsConstructor;
 
 import com.launchgate.evaluation.dto.*;
@@ -22,49 +23,45 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-@Tag(name = "Evaluation", description = "Expert assignment, review drafting and publishing")
+@Tag(name = "Проверка работ", description = "Назначение экспертов, подготовка черновиков и публикация проверки")
 public class EvaluationController {
     private final EvaluationService evaluationService;
 
     @PostMapping("/organizer/evaluations/assignments")
-    @Operation(summary = "Assign expert to a submitted stage solution")
+    @Operation(summary = "Назначить эксперта на отправленное решение этапа")
     public AssignmentResponse assign(
             @AuthenticationPrincipal AuthenticatedUser user,
-            @Valid @RequestBody AssignmentRequest request
-    ) {
+            @Valid @RequestBody AssignmentRequest request) {
         return evaluationService.assign(user, request);
     }
 
     @GetMapping("/expert/reviews")
-    @Operation(summary = "List review assignments of current expert")
+    @Operation(summary = "Получить список назначенных проверок текущего эксперта")
     public AssignmentListResponse myReviews(
             @AuthenticationPrincipal AuthenticatedUser user,
-            @RequestParam(required = false) ReviewStatus status
-    ) {
+            @RequestParam(required = false) ReviewStatus status) {
         return new AssignmentListResponse(evaluationService.myAssignments(user, status));
     }
 
     @GetMapping("/expert/reviews/{assignmentId}/submission")
-    @Operation(summary = "Open stage submission assigned to current expert")
-    public com.launchgate.submission.dto.StageSubmissionResponse reviewSubmission(
+    @Operation(summary = "Получить отправленное на этап решение, назначенное текущему эксперту")
+    public StageSubmissionResponse reviewSubmission(
             @AuthenticationPrincipal AuthenticatedUser user,
-            @PathVariable Long assignmentId
-    ) {
+            @PathVariable Long assignmentId) {
         return evaluationService.reviewSubmission(user, assignmentId);
     }
 
     @PutMapping("/expert/reviews/{assignmentId}/draft")
-    @Operation(summary = "Save draft score and comment for a review")
+    @Operation(summary = "Сохранить черновик оценки и комментария по проверке")
     public ReviewResponse saveDraft(
             @AuthenticationPrincipal AuthenticatedUser user,
             @PathVariable Long assignmentId,
-            @Valid @RequestBody ReviewDraftRequest request
-    ) {
+            @Valid @RequestBody ReviewDraftRequest request) {
         return evaluationService.saveDraft(user, assignmentId, request);
     }
 
     @PostMapping("/expert/reviews/{assignmentId}/publish")
-    @Operation(summary = "Finalize expert review")
+    @Operation(summary = "Завершить проверку")
     public ReviewResponse publish(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long assignmentId) {
         return evaluationService.publish(user, assignmentId);
     }
