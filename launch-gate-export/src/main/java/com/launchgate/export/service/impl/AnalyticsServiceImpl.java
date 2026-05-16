@@ -7,7 +7,7 @@ import com.launchgate.contest.service.ContestRolePolicy;
 import com.launchgate.export.dto.ContestAnalyticsResponse;
 import com.launchgate.export.service.AnalyticsService;
 import com.launchgate.identity.dto.AuthenticatedUser;
-import com.launchgate.submission.service.SubmissionCatalog;
+import com.launchgate.submission.service.SubmissionReaderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
     private final ContestRolePolicy rolePolicy;
     private final ContestReaderService contestReaderService;
-    private final SubmissionCatalog submissionCatalog;
+    private final SubmissionReaderService submissionReaderService;
 
     @Override
     @Transactional(readOnly = true)
@@ -31,7 +31,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
         ContestMetrics metrics = contestReaderService.metrics(contestId);
 
-        Long submittedWorks = submissionCatalog.countAllSubmittedStage(contestId);
+        Long submittedWorks = submissionReaderService.countAllSubmittedStage(contestId);
 
         return new ContestAnalyticsResponse(metrics.registrations(), metrics.teams(), metrics.stages(), submittedWorks);
     }

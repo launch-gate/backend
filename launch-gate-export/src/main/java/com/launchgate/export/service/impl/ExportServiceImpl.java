@@ -4,6 +4,7 @@ import com.launchgate.evaluation.dto.ReviewSummary;
 import com.launchgate.export.mapper.ExportMapper;
 import com.launchgate.export.service.ExportService;
 import com.launchgate.export.utils.ExportUtils;
+import com.launchgate.submission.service.SubmissionReaderService;
 import lombok.RequiredArgsConstructor;
 
 import com.launchgate.export.dto.*;
@@ -17,7 +18,6 @@ import com.launchgate.contest.service.ContestRolePolicy;
 import com.launchgate.evaluation.service.EvaluationCatalog;
 import com.launchgate.identity.dto.AuthenticatedUser;
 import com.launchgate.submission.dto.SubmissionSummary;
-import com.launchgate.submission.service.SubmissionCatalog;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.Comparator;
@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ExportServiceImpl implements ExportService {
     private final ContestReaderService contestReaderService;
     private final ContestRolePolicy rolePolicy;
-    private final SubmissionCatalog submissionCatalog;
+    private final SubmissionReaderService submissionReaderService;
     private final EvaluationCatalog evaluationCatalog;
     private final ExportJobRepository exportJobRepository;
     private final Clock clock;
@@ -64,7 +64,7 @@ public class ExportServiceImpl implements ExportService {
 
     private List<RankingRow> rankingRows(Long contestId) {
         return contestReaderService.stages(contestId).stream()
-                .flatMap(stage -> submissionCatalog.submittedByStage(stage.getId()).stream()
+                .flatMap(stage -> submissionReaderService.submittedByStage(stage.getId()).stream()
                         .map(submission -> rankingRow(stage, submission)))
                 .sorted(Comparator.comparing(RankingRow::score).reversed())
                 .toList();
