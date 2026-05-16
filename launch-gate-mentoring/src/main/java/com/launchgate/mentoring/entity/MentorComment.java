@@ -16,6 +16,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Комментарий ментора.
+ */
 @Entity
 @Table(schema = "mentoring", name = "mentor_comments")
 @Getter

@@ -1,16 +1,15 @@
-package com.launchgate.mentoring.service;
+package com.launchgate.mentoring.mapper;
 
 import com.launchgate.mentoring.dto.MentorAssignmentResponse;
 import com.launchgate.mentoring.entity.MentorAssignment;
 import com.launchgate.mentoring.dto.MentorCallResponse;
 import com.launchgate.mentoring.entity.MentorCall;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class MentoringMapper {
+@UtilityClass
+public class MentoringMapper {
 
-    public static MentorAssignmentResponse toResponse(MentorAssignment assignment) {
+    public MentorAssignmentResponse toResponse(MentorAssignment assignment) {
         return new MentorAssignmentResponse(
                 assignment.getId(),
                 assignment.getContest().getId(),
@@ -19,7 +18,7 @@ public final class MentoringMapper {
         );
     }
 
-    public static MentorCallResponse toResponse(MentorCall call) {
+    public MentorCallResponse toResponse(MentorCall call) {
         return new MentorCallResponse(
                 call.getId(),
                 call.getTeam().getId(),

@@ -1,6 +1,7 @@
 package com.launchgate.filestorage.service;
 
 import com.launchgate.filestorage.mapper.FileStorageMapper;
+import com.launchgate.filestorage.service.impl.FileStorageService;
 import com.launchgate.filestorage.utils.FileUtils;
 import com.launchgate.identity.entity.UserAccount;
 import lombok.RequiredArgsConstructor;
@@ -28,19 +29,14 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service
 @RequiredArgsConstructor
-public class FileStorageService {
+public class FileStorageServiceImpl implements FileStorageService {
     private final StoredFileRepository fileRepository;
     private final UserAccountRepository userAccountRepository;
     private final MinioClient minioClient;
     private final FileStorageProperties properties;
     private final Clock clock;
 
-    /**
-     * Загрузить файл.
-     * @param user пользователь.
-     * @param file файл.
-     * @return информация о загруженном файле.
-     */
+    @Override
     public FileResponse upload(AuthenticatedUser user, MultipartFile file) {
         if (file.isEmpty()) {
             throw new DomainException("Ошибка загрузки файла", "Файл отсутствует");
@@ -75,11 +71,7 @@ public class FileStorageService {
         return FileStorageMapper.toResponse(storedFile);
     }
 
-    /**
-     * Получить ссылку на файл.
-     * @param fileId идентификатор файла
-     * @return ссылка для получение файла.
-     */
+    @Override
     public DownloadUrlResponse downloadUrl(Long fileId) {
         StoredFile file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new NotFoundException("Файл не найден"));

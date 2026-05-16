@@ -17,6 +17,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.Instant;
 
+/**
+ * Назначение ментора.
+ */
 @Entity
 @Table(schema = "mentoring", name = "mentor_assignments")
 @Getter

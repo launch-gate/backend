@@ -6,5 +6,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MentorCommentRepository extends JpaRepository<MentorComment, Long> {
-    List<MentorComment> findAllByStageSubmission_IdOrderByCreatedAtDesc(Long stageSubmissionId);
+    List<MentorComment> findAllByStageSubmissionIdOrderByCreatedAtDesc(Long stageSubmissionId);
 }
