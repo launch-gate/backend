@@ -16,6 +16,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.Instant;
 
+/**
+ * Встреча с ментором.
+ */
 @Entity
 @Table(schema = "mentoring", name = "mentor_calls")
 @Getter

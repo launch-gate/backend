@@ -1,9 +1,12 @@
 package com.launchgate.mentoring.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import java.time.Instant;
-
+/**
+ * Результат на назначение ментора для команды.
+ * @param id идентификатор назначения.
+ * @param contestId идентификатор конкурса.
+ * @param teamId идентификатор команды.
+ * @param mentorId идентификатор ментора.
+ */
 public record MentorAssignmentResponse(
         Long id,
         Long contestId,

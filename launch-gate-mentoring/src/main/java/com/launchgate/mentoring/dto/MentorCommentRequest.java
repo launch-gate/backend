@@ -4,11 +4,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-@Schema(description = "Mentor comment for a stage submission")
+/**
+ * Комментарий ментора к отправленному решению этапа.
+ * @param stageSubmissionId идентификатор отправленного решения этапа.
+ * @param text комментарий.
+ */
+@Schema(description = "Комментарий ментора к отправленному решению этапа")
 public record MentorCommentRequest(
-        @Schema(description = "Stage submission id", example = "19")
+        @Schema(description = "Идентификатор отправленного решения этапа", example = "19")
         @NotNull Long stageSubmissionId,
-        @Schema(description = "Comment text", example = "Please strengthen the customer validation block before the next checkpoint.")
+        @Schema(description = "Комментарий", example = "Комментарий")
         @NotBlank String text
 ) {
 }
