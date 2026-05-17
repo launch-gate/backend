@@ -16,36 +16,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер для работы с формами работ.
+ */
 @RestController
 @RequestMapping("/api/v1/projects")
 @RequiredArgsConstructor
-@Tag(name = "Submissions", description = "Participant projects and stage form submissions")
+@Tag(name = "Работы", description = "Работы по этапам")
 public class SubmissionController {
     private final SubmissionService submissionService;
 
-    @PostMapping
-    @Operation(summary = "Create participant or team project workspace")
-    public ProjectResponse createProject(
-            @AuthenticationPrincipal AuthenticatedUser user,
-            @Valid @RequestBody ProjectRequest request
-    ) {
-        return submissionService.createProject(user, request);
-    }
-
-    @GetMapping("/my")
-    @Operation(summary = "List current user projects grouped into active and archived")
-    public MyProjectsResponse myProjects(@AuthenticationPrincipal AuthenticatedUser user) {
-        return submissionService.myProjects(user);
-    }
-
-    @GetMapping("/{projectId}")
-    @Operation(summary = "Get project with stage forms and saved values")
-    public ProjectResponse project(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long projectId) {
-        return submissionService.project(user, projectId);
-    }
-
     @GetMapping("/organizer/stage-submissions/{submissionId}")
-    @Operation(summary = "Get stage submission details for organizer workspace")
+    @Operation(summary = "Получение подробной информации по форме этапа для пространства организатора")
     public StageSubmissionResponse organizerSubmission(
             @AuthenticationPrincipal AuthenticatedUser user,
             @PathVariable Long submissionId
@@ -54,7 +36,7 @@ public class SubmissionController {
     }
 
     @PostMapping("/{projectId}/stages/{stageId}/values")
-    @Operation(summary = "Save one value inside a stage form draft")
+    @Operation(summary = "Сохранение значения в черновике формы этапа")
     public StageSubmissionResponse saveValue(
             @AuthenticationPrincipal AuthenticatedUser user,
             @PathVariable Long projectId,
@@ -65,7 +47,7 @@ public class SubmissionController {
     }
 
     @PostMapping("/{projectId}/stages/{stageId}/submit")
-    @Operation(summary = "Finalize stage submission")
+    @Operation(summary = "Завершить отправку формы этапа")
     public StageSubmissionResponse submit(
             @AuthenticationPrincipal AuthenticatedUser user,
             @PathVariable Long projectId,
