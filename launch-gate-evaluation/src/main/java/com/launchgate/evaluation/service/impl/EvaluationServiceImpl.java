@@ -63,7 +63,7 @@ public class EvaluationServiceImpl implements EvaluationService {
             throw new LaunchGateException("Назначить эксперта можно только на отправленную работу");
         }
 
-        ReviewAssignment assignment = assignmentRepository.findBySubmissionIdAndExpertId(request.submissionId(), expert.getId())
+        ReviewAssignment assignment = assignmentRepository.findBySubmission_IdAndExpert_Id(request.submissionId(), expert.getId())
                 .orElseGet(() -> assignmentRepository.save(new ReviewAssignment(
                         stage,
                         submission,
@@ -78,8 +78,8 @@ public class EvaluationServiceImpl implements EvaluationService {
     @Transactional(readOnly = true)
     public List<AssignmentResponse> myAssignments(AuthenticatedUser expert, ReviewStatus status) {
         List<ReviewAssignment> assignments = (status == null)
-                ? assignmentRepository.findAllByExpertId(expert.id())
-                : assignmentRepository.findAllByExpertIdAndStatus(expert.id(), status);
+                ? assignmentRepository.findAllByExpert_Id(expert.id())
+                : assignmentRepository.findAllByExpert_IdAndStatus(expert.id(), status);
 
         return assignments.stream()
                 .map(EvaluationMapper::toAssignmentResponse)

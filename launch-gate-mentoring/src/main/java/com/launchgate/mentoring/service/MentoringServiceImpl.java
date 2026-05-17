@@ -62,7 +62,7 @@ public class MentoringServiceImpl implements MentoringService {
             throw new ForbiddenException("Пользователь должен иметь роль ментора в конкурсе");
         }
 
-        MentorAssignment assignment = assignmentRepository.findByTeamIdAndMentorId(team.getId(), mentor.getId())
+        MentorAssignment assignment = assignmentRepository.findByTeam_IdAndMentor_Id(team.getId(), mentor.getId())
                 .orElseGet(() -> assignmentRepository.save(new MentorAssignment(
                         team.getContest(),
                         team,
@@ -76,7 +76,7 @@ public class MentoringServiceImpl implements MentoringService {
     @Override
     @Transactional(readOnly = true)
     public List<MentorAssignmentResponse> myTeams(AuthenticatedUser mentor) {
-        return assignmentRepository.findAllByMentorId(mentor.id()).stream()
+        return assignmentRepository.findAllByMentor_Id(mentor.id()).stream()
                 .map(MentoringMapper::toResponse)
                 .toList();
     }
@@ -84,7 +84,7 @@ public class MentoringServiceImpl implements MentoringService {
     @Override
     @Transactional(readOnly = true)
     public List<MentorCallResponse> myCalls(AuthenticatedUser mentor) {
-        return callRepository.findAllByMentorIdOrderByStartsAtAsc(mentor.id()).stream()
+        return callRepository.findAllByMentor_IdOrderByStartsAtAsc(mentor.id()).stream()
                 .map(MentoringMapper::toResponse)
                 .toList();
     }
@@ -100,14 +100,14 @@ public class MentoringServiceImpl implements MentoringService {
             throw new ForbiddenException("Комментарии ментора доступны только для решений команд");
         }
 
-        boolean canRead = assignmentRepository.existsByTeamIdAndMentorId(project.getTeam().getId(), user.id())
+        boolean canRead = assignmentRepository.existsByTeam_IdAndMentor_Id(project.getTeam().getId(), user.id())
                 || teamService.isMember(project.getTeam().getId(), user.id());
 
         if (!canRead) {
             throw new ForbiddenException("Нет доступа к комментариям ментора");
         }
 
-        return commentRepository.findAllByStageSubmissionIdOrderByCreatedAtDesc(stageSubmissionId).stream()
+        return commentRepository.findAllByStageSubmission_IdOrderByCreatedAtDesc(stageSubmissionId).stream()
                 .map(comment -> new MentorCommentResponse(
                         comment.getId(),
                         comment.getStageSubmission().getId(),
@@ -121,14 +121,14 @@ public class MentoringServiceImpl implements MentoringService {
     @Override
     @Transactional(readOnly = true)
     public List<MentorCallResponse> teamCalls(AuthenticatedUser user, Long teamId) {
-        boolean canRead = assignmentRepository.existsByTeamIdAndMentorId(teamId, user.id())
+        boolean canRead = assignmentRepository.existsByTeam_IdAndMentor_Id(teamId, user.id())
                 || teamService.isMember(teamId, user.id());
 
         if (!canRead) {
             throw new ForbiddenException("Нет доступа к созвонам с ментором");
         }
 
-        return callRepository.findAllByTeamIdOrderByStartsAtAsc(teamId).stream()
+        return callRepository.findAllByTeam_IdOrderByStartsAtAsc(teamId).stream()
                 .map(MentoringMapper::toResponse)
                 .toList();
     }
@@ -144,7 +144,7 @@ public class MentoringServiceImpl implements MentoringService {
             throw new ForbiddenException("Ментор может открывать только решения команд");
         }
 
-        boolean canRead = assignmentRepository.existsByTeamIdAndMentorId(project.getTeam().getId(), user.id())
+        boolean canRead = assignmentRepository.existsByTeam_IdAndMentor_Id(project.getTeam().getId(), user.id())
                 || teamService.isMember(project.getTeam().getId(), user.id());
 
         if (!canRead) {
@@ -162,7 +162,7 @@ public class MentoringServiceImpl implements MentoringService {
         Project project = submissionReaderService.getProjectById(submission.getProjectId());
 
         if (Objects.isNull(project.getTeam()) ||
-                !assignmentRepository.existsByTeamIdAndMentorId(project.getTeam().getId(), mentor.id())) {
+                !assignmentRepository.existsByTeam_IdAndMentor_Id(project.getTeam().getId(), mentor.id())) {
             throw new ForbiddenException("Ментор не назначен к этой команды");
         }
 
@@ -180,7 +180,7 @@ public class MentoringServiceImpl implements MentoringService {
     @Transactional
     public Long scheduleCall(AuthenticatedUser mentor, ScheduleCallRequest request) {
 
-        if (!assignmentRepository.existsByTeamIdAndMentorId(request.teamId(), mentor.id())) {
+        if (!assignmentRepository.existsByTeam_IdAndMentor_Id(request.teamId(), mentor.id())) {
             throw new ForbiddenException("Ментор не назначен на эту команду");
         }
 

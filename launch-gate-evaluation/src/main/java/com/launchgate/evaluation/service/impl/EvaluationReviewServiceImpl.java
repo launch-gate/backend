@@ -25,7 +25,7 @@ public class EvaluationReviewServiceImpl implements EvaluationReviewService {
     @Transactional(readOnly = true)
     public ReviewSummary summary(Long submissionId) {
 
-        List<ReviewAssignment> reviews = reviewRepository.findAllBySubmissionId(submissionId)
+        List<ReviewAssignment> reviews = reviewRepository.findAllBySubmission_Id(submissionId)
                 .stream()
                 .filter(review -> Objects.nonNull(review.getScore()))
                 .toList();
