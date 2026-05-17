@@ -4,7 +4,8 @@ import jakarta.validation.constraints.NotNull;
 
 /**
  * Запрос на назначение ментора для команды.
- * @param teamId идентификатор команды.
+ *
+ * @param teamId       идентификатор команды.
  * @param mentorUserId идентификатор ментора.
  */
 public record AssignMentorRequest(

@@ -1,7 +1,7 @@
 package com.launchgate.export.service.impl;
 
 import com.launchgate.contest.dto.ContestMetrics;
-import com.launchgate.contest.entity.ContestRole;
+import com.launchgate.contest.enums.ContestRole;
 import com.launchgate.contest.service.ContestReaderService;
 import com.launchgate.contest.service.ContestRolePolicy;
 import com.launchgate.export.dto.ContestAnalyticsResponse;

@@ -10,5 +10,4 @@ public class OrganizerMapper {
     public static OrganizerResponse toOrganizerResponse(ContestOrganizer organizer) {
         return new OrganizerResponse(organizer.getId(), organizer.getUserId(), organizer.getRole());
     }
-
 }

@@ -4,7 +4,7 @@ import com.launchgate.contest.dto.DeletedResponse;
 import com.launchgate.contest.dto.resources.ResourceListResponse;
 import com.launchgate.contest.dto.resources.ResourceRequest;
 import com.launchgate.contest.dto.resources.ResourceResponse;
-import com.launchgate.contest.service.ContestResourceService;
+import com.launchgate.contest.service.api.ContestResourceService;
 import com.launchgate.identity.dto.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,46 +16,34 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-@Tag(name = "Contest Resources", description = "Stage resource management")
+@Tag(name = "Ресурсы конкурсов", description = "Управление ресурсами этапов")
 public class ContestResourceController {
     private final ContestResourceService contestResourceService;
 
     @PostMapping("/organizer/stages/{stageId}/resources")
-    @Operation(summary = "Create stage resource")
-    public ResourceResponse createStageResource(
-            @AuthenticationPrincipal AuthenticatedUser user,
-            @PathVariable Long stageId,
-            @Valid @RequestBody ResourceRequest request
-    ) {
+    @Operation(summary = "Создать ресурс этапа")
+    public ResourceResponse createStageResource(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long stageId,
+            @Valid @RequestBody ResourceRequest request) {
         return contestResourceService.createStageResource(user, stageId, request);
     }
 
     @PatchMapping("/organizer/stages/{stageId}/resources/{resourceId}")
-    @Operation(summary = "Update stage resource")
-    public ResourceResponse updateStageResource(
-            @AuthenticationPrincipal AuthenticatedUser user,
-            @PathVariable Long stageId,
-            @PathVariable Long resourceId,
-            @Valid @RequestBody ResourceRequest request
-    ) {
+    @Operation(summary = "Обновить ресурс этапа")
+    public ResourceResponse updateStageResource(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long stageId,
+            @PathVariable Long resourceId, @Valid @RequestBody ResourceRequest request) {
         return contestResourceService.updateStageResource(user, stageId, resourceId, request);
     }
 
     @DeleteMapping("/organizer/stages/{stageId}/resources/{resourceId}")
-    @Operation(summary = "Delete stage resource")
-    public DeletedResponse deleteStageResource(
-            @AuthenticationPrincipal AuthenticatedUser user,
-            @PathVariable Long stageId,
-            @PathVariable Long resourceId
-    ) {
+    @Operation(summary = "Удалить ресурс этапа")
+    public DeletedResponse deleteStageResource(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long stageId,
+            @PathVariable Long resourceId) {
         return new DeletedResponse(contestResourceService.deleteStageResource(user, stageId, resourceId));
     }
 
     @GetMapping("/stages/{stageId}/resources")
-    @Operation(summary = "Get stage resource")
-    public ResourceListResponse getStageResources(
-            @PathVariable Long stageId
-    ) {
+    @Operation(summary = "Получить ресурс этапа")
+    public ResourceListResponse getStageResources(@PathVariable Long stageId) {
         return new ResourceListResponse(contestResourceService.getResourcesByStageId(stageId));
     }
 }

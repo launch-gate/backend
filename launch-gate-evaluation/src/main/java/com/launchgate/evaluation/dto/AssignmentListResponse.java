@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Назначенные проверки.
+ *
  * @param assignments проверки.
  */
 public record AssignmentListResponse(

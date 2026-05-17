@@ -14,15 +14,16 @@ public class FileUtils {
     /**
      * Время истечения ссылки для получния файла в секундах.
      */
-    public Integer FILE_URL_EXPIRATION_SECONDS  = 604800;
+    public static Integer FILE_URL_EXPIRATION_SECONDS = 604800;
 
     /**
      * Сгенерировать ключ файла в MinIO.
-     * @param userId идентификатор пользователя.
+     *
+     * @param userId   идентификатор пользователя.
      * @param fileName имя файла.
      * @return ключ файла в MinIO
      */
-    public String generateObjectKey(Long userId, String fileName) {
+    public static String generateObjectKey(Long userId, String fileName) {
 
         String randomHash = Long.toUnsignedString(java.util.concurrent.ThreadLocalRandom.current().nextLong(), 36);
         return "%d/%s/%s".formatted(userId, randomHash, fileName);
@@ -30,12 +31,13 @@ public class FileUtils {
 
     /**
      * Получить публичную ссылку.
-     * @param internalUrl внутренний url.
+     *
+     * @param internalUrl         внутренний url.
      * @param minIoPublicEndpoint публичная url MinIO.
-     * @param minIoEndpoint внутренний url MinIO.
+     * @param minIoEndpoint       внутренний url MinIO.
      * @return публичная ссылка
      */
-    public String getPublicUrl(String internalUrl, String minIoPublicEndpoint, String minIoEndpoint) {
+    public static String getPublicUrl(String internalUrl, String minIoPublicEndpoint, String minIoEndpoint) {
         String publicEndpoint = normalizeEndpoint(minIoPublicEndpoint);
         String internalEndpoint = normalizeEndpoint(minIoEndpoint);
 
@@ -48,10 +50,11 @@ public class FileUtils {
 
     /**
      * Нормализует URL-адрес эндпоинта.
+     *
      * @param endpoint эндпоинт.
      * @return нормализованный url
      */
-    private String normalizeEndpoint(String endpoint) {
+    private static String normalizeEndpoint(String endpoint) {
         if (StringUtils.isBlank(endpoint)) {
             return null;
         }

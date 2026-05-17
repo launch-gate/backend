@@ -17,14 +17,16 @@ public interface EvaluationService {
 
     /**
      * Назначить эксперта.
+     *
      * @param organizer организатор.
-     * @param request запрос на назначение эксперта.
+     * @param request   запрос на назначение эксперта.
      * @return результат назначения эксперта.
      */
     AssignmentResponse assign(AuthenticatedUser organizer, AssignmentRequest request);
 
     /**
      * Получить список назначенных проверок текущего эксперта.
+     *
      * @param expert эксперт.
      * @param status стаус проверки.
      * @return список назначенных проверок.
@@ -33,16 +35,18 @@ public interface EvaluationService {
 
     /**
      * Сохранить черновик оценки и комментария по проверке.
-     * @param expert эксперт.
+     *
+     * @param expert       эксперт.
      * @param assignmentId идентификатор назначения.
-     * @param request черновик проверки.
+     * @param request      черновик проверки.
      * @return данные экспертной проверки.
      */
     ReviewResponse saveDraft(AuthenticatedUser expert, Long assignmentId, ReviewDraftRequest request);
 
     /**
      * Опубликовать проверку.
-     * @param expert эксперт.
+     *
+     * @param expert       эксперт.
      * @param assignmentId идентификатор назначения.
      * @return результат экспертной проверки.
      */
@@ -50,7 +54,8 @@ public interface EvaluationService {
 
     /**
      * Получить отправленное на этап решение.
-     * @param expert эксперт.
+     *
+     * @param expert       эксперт.
      * @param assignmentId идентификатор назначения.
      * @return решение.
      */

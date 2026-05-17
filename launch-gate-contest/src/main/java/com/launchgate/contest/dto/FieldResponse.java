@@ -1,8 +1,25 @@
 package com.launchgate.contest.dto;
 
-import com.launchgate.contest.entity.*;
+import com.launchgate.contest.enums.FieldType;
+import com.launchgate.contest.enums.SubmissionFieldFileFormat;
+
 import java.util.List;
 
+/**
+ * Ответ с полной информацией о поле формы.
+ *
+ * @param id              уникальный идентификатор поля
+ * @param order           порядковый номер поля на форме
+ * @param title           название поля
+ * @param type            тип поля
+ * @param required        флаг обязательности заполнения поля
+ * @param fileFormats     список поддерживаемых форматов
+ * @param maxFileSizeMb   максимальный размер файла в мегабайтах
+ * @param participantHint подсказка для участника по заполнению поля
+ * @param exampleValue    пример корректного значения
+ * @param expertNote      заметка или инструкция для эксперта, оценивающего поле
+ * @param criteria        список критериев оценки, привязанных к этому полю
+ */
 public record FieldResponse(
         Long id,
         int order,

@@ -1,11 +1,13 @@
 package com.launchgate.evaluation.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.math.BigDecimal;
 
 /**
  * Данные черновика проверки.
- * @param score оценка.
+ *
+ * @param score   оценка.
  * @param comment комментарий.
  */
 @Schema(description = "Данные черновика проверки")

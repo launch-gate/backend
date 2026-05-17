@@ -2,9 +2,14 @@ package com.launchgate.contest.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(description = "Deletion result")
+/**
+ * Результат удаления.
+ *
+ * @param id идентификатор.
+ */
+@Schema(description = "Результат удаления")
 public record DeletedResponse(
-        @Schema(description = "Deleted entity id", example = "17")
+        @Schema(description = "Идентификатор", example = "17")
         Long id
 ) {
 }

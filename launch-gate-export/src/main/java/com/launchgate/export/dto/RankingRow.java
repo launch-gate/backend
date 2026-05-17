@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 /**
  * Модель строки в конкурсном рейтинге.
  *
- * @param stage стадия
- * @param project проект
- * @param submissionId идентификатор поданной работы
- * @param score оценка
+ * @param stage            стадия
+ * @param project          проект
+ * @param submissionId     идентификатор поданной работы
+ * @param score            оценка
  * @param completedReviews ревью
  */
 public record RankingRow(

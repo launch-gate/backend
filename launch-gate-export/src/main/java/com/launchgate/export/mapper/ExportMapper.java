@@ -14,9 +14,10 @@ public class ExportMapper {
 
     /**
      * Сформировать сроку турнирной таблицы.
+     *
      * @return срока турнирной таблицы
      */
-    public RankingRow toRankingRow(ContestStage stage, SubmissionSummary submission, ReviewSummary review) {
+    public static RankingRow toRankingRow(ContestStage stage, SubmissionSummary submission, ReviewSummary review) {
         return new RankingRow(
                 stage.getTitle(),
                 submission.solutionTitle(),

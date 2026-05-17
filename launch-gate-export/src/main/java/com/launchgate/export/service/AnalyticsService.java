@@ -10,7 +10,8 @@ public interface AnalyticsService {
 
     /**
      * Получить аналитику по конкурсу.
-     * @param user пользователь
+     *
+     * @param user      пользователь
      * @param contestId идентификатор конкурса
      * @return аналитика
      */

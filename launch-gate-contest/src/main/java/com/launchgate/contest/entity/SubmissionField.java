@@ -2,6 +2,8 @@ package com.launchgate.contest.entity;
 
 import com.launchgate.contest.entity.order.BaseOrderEntity;
 import com.launchgate.contest.entity.stage.ContestStage;
+import com.launchgate.contest.enums.FieldType;
+import com.launchgate.contest.enums.SubmissionFieldFileFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Entity;

@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class MentoringMapper {
 
-    public MentorAssignmentResponse toResponse(MentorAssignment assignment) {
+    public static MentorAssignmentResponse toResponse(MentorAssignment assignment) {
         return new MentorAssignmentResponse(
                 assignment.getId(),
                 assignment.getContest().getId(),
@@ -18,7 +18,7 @@ public class MentoringMapper {
         );
     }
 
-    public MentorCallResponse toResponse(MentorCall call) {
+    public static MentorCallResponse toResponse(MentorCall call) {
         return new MentorCallResponse(
                 call.getId(),
                 call.getTeam().getId(),

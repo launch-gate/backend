@@ -1,17 +1,25 @@
 package com.launchgate.contest.service;
 
-import com.launchgate.common.DomainException;
+import com.launchgate.common.LaunchGateException;
 import com.launchgate.contest.dto.SubmissionFieldRequest;
-import com.launchgate.contest.entity.FieldFileFormatCategory;
-import com.launchgate.contest.entity.FieldType;
-import com.launchgate.contest.entity.SubmissionFieldFileFormat;
+import com.launchgate.contest.enums.FieldFileFormatCategory;
+import com.launchgate.contest.enums.SubmissionFieldFileFormat;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
+/**
+ * Сервис для валидации полей формы.
+ */
 @Service
 public class SubmissionFieldConfigurationService {
 
+    /**
+     * Валидировать поле формы.
+     * @param request поле
+     */
     public void validate(SubmissionFieldRequest request) {
         validateDuplicates(request);
         switch (request.type()) {
@@ -22,52 +30,59 @@ public class SubmissionFieldConfigurationService {
         }
     }
 
+    /**
+     * Получить все форматы.
+     * @return список форматов.
+     */
     public List<SubmissionFieldFileFormat> allFormats() {
         return List.of(SubmissionFieldFileFormat.values());
     }
 
     private void validateNonFileField(SubmissionFieldRequest request) {
         if (request.fileFormats() != null && !request.fileFormats().isEmpty()) {
-            throw new DomainException("field_file_formats_not_allowed", "This field type does not support file formats");
+            throw new LaunchGateException("Этот тип поля не поддерживает ограничение на размер файла");
         }
         if (request.maxFileSizeMb() != null) {
-            throw new DomainException("field_file_size_not_allowed", "This field type does not support file size limit");
+            throw new LaunchGateException("Этот тип поля не поддерживает ограничение на размер файла");
         }
     }
 
     private void validateGenericFileField(SubmissionFieldRequest request) {
-        if (request.fileFormats() == null || request.fileFormats().isEmpty()) {
-            throw new DomainException("field_file_formats_required", "Upload field must define at least one file format");
+        if (CollectionUtils.isEmpty(request.fileFormats())) {
+            throw new LaunchGateException("Поле загрузки должно определять как минимум один формат файла");
         }
         validateMaxFileSize(request);
     }
 
     private void validateMediaField(SubmissionFieldRequest request, FieldFileFormatCategory expectedCategory) {
         validateGenericFileField(request);
-        var invalidFormats = request.fileFormats().stream()
+
+        List<SubmissionFieldFileFormat> invalidFormats = request.fileFormats().stream()
                 .filter(format -> format.category() != expectedCategory)
                 .toList();
-        if (!invalidFormats.isEmpty()) {
-            throw new DomainException(
-                    "field_file_formats_invalid",
-                    "This field type supports only " + expectedCategory.name().toLowerCase() + " formats"
-            );
+
+        if (CollectionUtils.isNotEmpty(invalidFormats)) {
+            throw new LaunchGateException("Этот тип поля поддерживает только формат %s".formatted(expectedCategory.name().toLowerCase()));
         }
     }
 
     private void validateMaxFileSize(SubmissionFieldRequest request) {
         if (request.maxFileSizeMb() == null || request.maxFileSizeMb() <= 0) {
-            throw new DomainException("field_file_size_required", "Upload field must define positive max file size");
+            throw new LaunchGateException("Поле загрузки должно определять положительный максимальный размер файла");
         }
     }
 
     private void validateDuplicates(SubmissionFieldRequest request) {
-        if (request.fileFormats() == null || request.fileFormats().isEmpty()) {
+        if (CollectionUtils.isEmpty(request.fileFormats())) {
             return;
         }
-        var uniqueCount = request.fileFormats().stream().distinct().count();
+
+        long uniqueCount = request.fileFormats().stream()
+                .distinct()
+                .count();
+
         if (uniqueCount != request.fileFormats().size()) {
-            throw new DomainException("field_file_formats_duplicate", "Upload field must not contain duplicate formats");
+            throw new LaunchGateException("Поле загрузки не должно содержать дубликаты форматов");
         }
     }
 }

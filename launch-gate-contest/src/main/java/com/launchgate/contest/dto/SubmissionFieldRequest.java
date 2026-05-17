@@ -1,32 +1,48 @@
 package com.launchgate.contest.dto;
 
-import com.launchgate.contest.entity.*;
+import com.launchgate.contest.enums.FieldType;
+import com.launchgate.contest.enums.SubmissionFieldFileFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
-@Schema(description = "Single input field inside a stage form")
+/**
+ * Запрос на создание или обновление одиночного поля ввода в форме этапа.
+ *
+ * @param order           порядковый номер поля в форме
+ * @param title           название поля
+ * @param type            тип поля
+ * @param required        флаг обязательности заполнения поля
+ * @param fileFormats     список разрешенных форматов файлов
+ * @param maxFileSizeMb   лимит на размер файла в мегабайтах
+ * @param participantHint подсказка для участника, отображаемая под полем ввода
+ * @param exampleValue    пример ожидаемого ответа
+ * @param expertNote      внутренняя заметка, видимая только организаторам и экспертам
+ * @param criteria        список критериев оценки для данного поля
+ */
+@Schema(description = "Запрос на создание или обновление одиночного поля ввода в форме этапа")
 public record SubmissionFieldRequest(
-        @Schema(description = "Field order inside the form. If omitted on create, field is appended", example = "3")
+        @Schema(description = "Порядковый номер поля в форме", example = "3")
         Integer order,
-        @Schema(description = "Field title", example = "Problem statement")
+        @Schema(description = "Название поля", example = "Problem statement")
         @NotBlank String title,
-        @Schema(description = "Field type", example = "TEXT")
+        @Schema(description = "Тип поля", example = "TEXT")
         @NotNull FieldType type,
-        boolean required,
-        @Schema(description = "Allowed file formats for upload field", example = "[\"PDF\",\"DOCX\"]")
+        @Schema(description = "Флаг обязательности заполнения поля", example = "TEXT")
+        Boolean required,
+        @Schema(description = "Список разрешенных форматов файлов", example = "[\"PDF\",\"DOCX\"]")
         List<SubmissionFieldFileFormat> fileFormats,
-        @Schema(description = "File size limit in megabytes", example = "25")
+        @Schema(description = "Лимит на размер файла в мегабайтах", example = "25")
         Integer maxFileSizeMb,
-        @Schema(description = "Hint shown to participant under the input")
+        @Schema(description = "Подсказка для участника, отображаемая под полем ввода")
         String participantHint,
-        @Schema(description = "Example of an expected answer", example = "Describe the user problem in one paragraph")
+        @Schema(description = "Пример ожидаемого ответа", example = "Describe the user problem in one paragraph")
         String exampleValue,
-        @Schema(description = "Internal note visible only to organizers and experts")
+        @Schema(description = "Внутренняя заметка, видимая только организаторам и экспертам")
         String expertNote,
-        @Schema(description = "Evaluation criteria for this field")
+        @Schema(description = "Список критериев оценки для данного поля")
         @Valid List<FieldCriterionRequest> criteria
 ) {
 }

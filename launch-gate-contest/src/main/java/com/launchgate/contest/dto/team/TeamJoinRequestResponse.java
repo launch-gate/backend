@@ -1,6 +1,6 @@
 package com.launchgate.contest.dto.team;
 
-import com.launchgate.contest.entity.team.TeamJoinRequestStatus;
+import com.launchgate.contest.enums.TeamJoinRequestStatus;
 import java.time.Instant;
 
 public record TeamJoinRequestResponse(

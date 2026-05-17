@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Список комментариев ментора.
+ *
  * @param comments комментарии.
  */
 public record MentorCommentListResponse(

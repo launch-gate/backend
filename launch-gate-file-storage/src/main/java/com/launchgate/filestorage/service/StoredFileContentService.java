@@ -22,6 +22,7 @@ public class StoredFileContentService {
 
     /**
      * Загрузить файл в MinIO.
+     *
      * @param fileId уникальный идентификатор файла.
      * @return загруженный файл.
      */

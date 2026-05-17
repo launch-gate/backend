@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Список назначений менторов.
+ *
  * @param assignments назначения
  */
 public record MentorAssignmentListResponse(

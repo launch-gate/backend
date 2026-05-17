@@ -1,7 +1,7 @@
 package com.launchgate.contest.utils.field;
 
 import com.launchgate.contest.dto.FieldFormatResponse;
-import com.launchgate.contest.entity.SubmissionFieldFileFormat;
+import com.launchgate.contest.enums.SubmissionFieldFileFormat;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

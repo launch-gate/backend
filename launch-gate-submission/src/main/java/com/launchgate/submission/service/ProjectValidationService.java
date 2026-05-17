@@ -2,7 +2,7 @@ package com.launchgate.submission.service;
 
 import com.launchgate.common.ForbiddenException;
 import com.launchgate.common.NotFoundException;
-import com.launchgate.contest.service.TeamService;
+import com.launchgate.contest.service.api.TeamService;
 import com.launchgate.identity.dto.AuthenticatedUser;
 import com.launchgate.submission.entity.Project;
 import com.launchgate.submission.repository.ProjectRepository;
@@ -23,7 +23,8 @@ public class ProjectValidationService {
 
     /**
      * Проверяет существование проекта и наличие у пользователя прав на его редактирование.
-     * @param user пользователь
+     *
+     * @param user      пользователь
      * @param projectId идентификатор проекта.
      * @return проект
      */

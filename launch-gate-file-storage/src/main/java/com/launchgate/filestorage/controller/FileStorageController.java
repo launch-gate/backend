@@ -1,10 +1,9 @@
 package com.launchgate.filestorage.controller;
 
-import com.launchgate.filestorage.service.impl.FileStorageService;
+import com.launchgate.filestorage.service.FileStorageService;
 import lombok.RequiredArgsConstructor;
 
 import com.launchgate.filestorage.dto.*;
-import com.launchgate.filestorage.service.*;
 import com.launchgate.identity.dto.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

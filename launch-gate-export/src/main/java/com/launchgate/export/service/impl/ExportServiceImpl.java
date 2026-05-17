@@ -14,7 +14,7 @@ import com.launchgate.export.entity.*;
 import com.launchgate.export.repository.*;
 
 import com.launchgate.contest.service.ContestReaderService;
-import com.launchgate.contest.entity.ContestRole;
+import com.launchgate.contest.enums.ContestRole;
 import com.launchgate.contest.entity.stage.ContestStage;
 import com.launchgate.contest.service.ContestRolePolicy;
 import com.launchgate.identity.dto.AuthenticatedUser;

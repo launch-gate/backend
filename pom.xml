@@ -39,6 +39,9 @@
         <pdfbox.version>3.0.4</pdfbox.version>
         <springdoc.version>3.0.2</springdoc.version>
         <commons-csv.version>1.10.0</commons-csv.version>
+        <apache-commons-collections.version>4.4</apache-commons-collections.version>
+        <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
+        <checkstyle.version>10.21.0</checkstyle.version>
     </properties>
 
     <dependencies>

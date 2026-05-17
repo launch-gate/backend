@@ -12,26 +12,29 @@ public interface SubmissionService {
 
     /**
      * Сохранение значения в черновике формы этапа.
-     * @param user пользователь
+     *
+     * @param user      пользователь
      * @param projectId идентификатор проекта
-     * @param stageId идентификатор стадии
-     * @param request значение формы
+     * @param stageId   идентификатор стадии
+     * @param request   значение формы
      * @return форма этапа
      */
     StageSubmissionResponse saveValue(AuthenticatedUser user, Long projectId, Long stageId, ValueRequest request);
 
     /**
      * Завершить отправку формы этапа.
-     * @param user пользователь
+     *
+     * @param user      пользователь
      * @param projectId идентификатор проекта
-     * @param stageId идентификатор стадии
+     * @param stageId   идентификатор стадии
      * @return форма
      */
     StageSubmissionResponse submit(AuthenticatedUser user, Long projectId, Long stageId);
 
     /**
      * Получить подробную информацию по форме этапа для пространства организатора.
-     * @param user пользователь
+     *
+     * @param user         пользователь
      * @param submissionId идентификатор решения этапа
      * @return форма этапа
      */

@@ -1,5 +1,6 @@
 package com.launchgate.contest.entity.team;
 
+import com.launchgate.contest.enums.TeamJoinRequestStatus;
 import com.launchgate.identity.entity.UserAccount;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

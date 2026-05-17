@@ -5,9 +5,10 @@ import com.launchgate.contest.entity.team.Team;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class TeamMapper {
+@UtilityClass
+public class TeamMapper {
 
     public static TeamResponse toResponse(Team team, List<Long> memberIds) {
         return new TeamResponse(

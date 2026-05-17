@@ -1,6 +1,15 @@
 package com.launchgate.contest.dto;
 
-import com.launchgate.contest.entity.*;
-
-public record ContestMetrics(long registrations, long teams, long stages) {
+/**
+ * Информация о метриках.
+ *
+ * @param registrations количество регистраций.
+ * @param teams         количество команд.
+ * @param stages        количество стадий.
+ */
+public record ContestMetrics(
+        long registrations,
+        long teams,
+        long stages
+) {
 }
