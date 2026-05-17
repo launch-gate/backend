@@ -36,6 +36,7 @@ public class ProjectResponseAssembler {
 
     /**
      * Формирует полное представление проекта со всеми этапами конкурса и их статусами.
+     *
      * @param project проект.
      * @return рабочее пространства проекта.
      */
@@ -56,7 +57,8 @@ public class ProjectResponseAssembler {
 
     /**
      * Формирует детальный ответ по конкретной отправленной форме этапа.
-     * @param stage стадия
+     *
+     * @param stage      стадия
      * @param submission форма
      * @return форма этапа.
      */
@@ -70,15 +72,16 @@ public class ProjectResponseAssembler {
 
     /**
      * Формирует краткую сводку по отправленной форме этапа.
+     *
      * @param submission форма.
-     * @param stageId идентификатор стадии.
+     * @param stageId    идентификатор стадии.
      * @return краткая сводку по отправленной форме этапа.
      */
     public SubmissionSummary createSubmissionSummary(StageSubmission submission, Long stageId) {
         Project project = projectRepository.findById(submission.getProjectId())
                 .orElseThrow(() -> new NotFoundException("Проект не найден"));
 
-        List<SubmissionField>  stageFields = contestReaderService.getSubmissionFields(stageId);
+        List<SubmissionField> stageFields = contestReaderService.getSubmissionFields(stageId);
 
         String solutionTitle = valueRepository.findAllBySubmission_Id(submission.getId()).stream()
                 .filter(value -> stageFields.stream()

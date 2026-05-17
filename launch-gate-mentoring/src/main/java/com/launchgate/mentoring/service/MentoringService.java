@@ -18,14 +18,16 @@ public interface MentoringService {
 
     /**
      * Назначить ментора.
+     *
      * @param organizer организатор.
-     * @param request запрос на создание ментора.
+     * @param request   запрос на создание ментора.
      * @return результат на назначение ментора для команды.
      */
     MentorAssignmentResponse assign(AuthenticatedUser organizer, AssignMentorRequest request);
 
     /**
      * Получить список команд назначенных ментору.
+     *
      * @param mentor ментор.
      * @return список команд назначенных ментору.
      */
@@ -33,6 +35,7 @@ public interface MentoringService {
 
     /**
      * Получить список запланированных созвонов текущего ментора.
+     *
      * @param mentor ментор.
      * @return информации о встрече с ментром.
      */
@@ -40,7 +43,8 @@ public interface MentoringService {
 
     /**
      * Получить список комментариев ментора к отправленному решению этапа.
-     * @param user пользователь.
+     *
+     * @param user              пользователь.
      * @param stageSubmissionId идентификатор решения.
      * @return данные комментария ментора.
      */
@@ -48,7 +52,8 @@ public interface MentoringService {
 
     /**
      * Получить список созвонов с ментором, видимых участникам команды и назначенному ментору.
-     * @param user пользователь.
+     *
+     * @param user   пользователь.
      * @param teamId идентификатор команды.
      * @return информации о встрече с ментром.
      */
@@ -56,7 +61,8 @@ public interface MentoringService {
 
     /**
      * Просмотреть отправленную работу команды, доступную наставнику и членам команды.
-     * @param user пользователь.
+     *
+     * @param user              пользователь.
      * @param stageSubmissionId идентификатор решения.
      * @return работа.
      */
@@ -64,7 +70,8 @@ public interface MentoringService {
 
     /**
      * Создать комментарий ментора к отправленному решению этапа.
-     * @param mentor ментор.
+     *
+     * @param mentor  ментор.
      * @param request комментарий ментора.
      * @return идентификатор комментария.
      */
@@ -72,7 +79,8 @@ public interface MentoringService {
 
     /**
      * Запланировать созвон с ментором.
-     * @param mentor ментор.
+     *
+     * @param mentor  ментор.
      * @param request запрос на планирование встречи с ментором.
      * @return идентификатор встречи.
      */

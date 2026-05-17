@@ -9,7 +9,7 @@ import com.launchgate.aievaluation.dto.AiReviewResponse;
 import com.launchgate.aievaluation.entity.AiCriterionReview;
 import com.launchgate.aievaluation.entity.AiFieldReview;
 import com.launchgate.aievaluation.entity.AiSubmissionReview;
-import com.launchgate.contest.entity.FieldType;
+import com.launchgate.contest.enums.FieldType;
 import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 /**
  * Запрос на назначение эксперта.
+ *
  * @param submissionId
  * @param expertUserId
  */

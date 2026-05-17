@@ -2,10 +2,11 @@ package com.launchgate.mentoring.dto;
 
 /**
  * Результат на назначение ментора для команды.
- * @param id идентификатор назначения.
+ *
+ * @param id        идентификатор назначения.
  * @param contestId идентификатор конкурса.
- * @param teamId идентификатор команды.
- * @param mentorId идентификатор ментора.
+ * @param teamId    идентификатор команды.
+ * @param mentorId  идентификатор ментора.
  */
 public record MentorAssignmentResponse(
         Long id,

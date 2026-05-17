@@ -6,7 +6,7 @@ import com.launchgate.aievaluation.service.GithubRepositoryVerifier;
 import com.launchgate.aievaluation.service.model.AiPayloadKind;
 import com.launchgate.aievaluation.service.model.PreparedFieldPayload;
 import com.launchgate.contest.entity.FieldCriterion;
-import com.launchgate.contest.entity.FieldType;
+import com.launchgate.contest.enums.FieldType;
 import com.launchgate.contest.entity.SubmissionField;
 import com.launchgate.submission.entity.SubmissionValue;
 import java.util.Comparator;

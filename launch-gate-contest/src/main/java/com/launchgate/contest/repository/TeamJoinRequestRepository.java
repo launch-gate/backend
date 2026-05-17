@@ -3,7 +3,7 @@ package com.launchgate.contest.repository;
 import java.util.List;
 
 import com.launchgate.contest.entity.team.TeamJoinRequest;
-import com.launchgate.contest.entity.team.TeamJoinRequestStatus;
+import com.launchgate.contest.enums.TeamJoinRequestStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TeamJoinRequestRepository extends JpaRepository<TeamJoinRequest, Long> {

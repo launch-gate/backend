@@ -28,31 +28,21 @@ public class SubmissionController {
 
     @GetMapping("/organizer/stage-submissions/{submissionId}")
     @Operation(summary = "Получение подробной информации по форме этапа для пространства организатора")
-    public StageSubmissionResponse organizerSubmission(
-            @AuthenticationPrincipal AuthenticatedUser user,
-            @PathVariable Long submissionId
-    ) {
+    public StageSubmissionResponse organizerSubmission(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long submissionId) {
         return submissionService.organizerSubmission(user, submissionId);
     }
 
     @PostMapping("/{projectId}/stages/{stageId}/values")
     @Operation(summary = "Сохранение значения в черновике формы этапа")
-    public StageSubmissionResponse saveValue(
-            @AuthenticationPrincipal AuthenticatedUser user,
-            @PathVariable Long projectId,
-            @PathVariable Long stageId,
-            @Valid @RequestBody ValueRequest request
-    ) {
+    public StageSubmissionResponse saveValue(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long projectId,
+            @PathVariable Long stageId, @Valid @RequestBody ValueRequest request) {
         return submissionService.saveValue(user, projectId, stageId, request);
     }
 
     @PostMapping("/{projectId}/stages/{stageId}/submit")
     @Operation(summary = "Завершить отправку формы этапа")
-    public StageSubmissionResponse submit(
-            @AuthenticationPrincipal AuthenticatedUser user,
-            @PathVariable Long projectId,
-            @PathVariable Long stageId
-    ) {
+    public StageSubmissionResponse submit(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long projectId,
+            @PathVariable Long stageId) {
         return submissionService.submit(user, projectId, stageId);
     }
 }

@@ -3,11 +3,10 @@ package com.launchgate.contest.utils.contest;
 import com.launchgate.contest.dto.contest.ContestInfoResponse;
 import com.launchgate.contest.entity.Contest;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ContestMapper {
+@UtilityClass
+public class ContestMapper {
 
     public static ContestInfoResponse toInfoResponse(Contest contest) {
         return new ContestInfoResponse(

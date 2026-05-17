@@ -3,14 +3,16 @@ package com.launchgate.contest.utils.registration;
 import com.launchgate.contest.dto.registration.ContestParticipantOrganizerResponse;
 import com.launchgate.contest.dto.registration.ContestParticipantResponse;
 import com.launchgate.contest.entity.ContestRegistration;
+import com.launchgate.identity.entity.UserAccount;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ContestRegistrationMapper {
+@UtilityClass
+public class ContestRegistrationMapper {
 
     public static ContestParticipantResponse toParticipantResponse(ContestRegistration registration) {
-        var participant = registration.getParticipant();
+        UserAccount participant = registration.getParticipant();
         return new ContestParticipantResponse(
                 participant.getId(),
                 participant.getFullName(),
@@ -21,7 +23,7 @@ public final class ContestRegistrationMapper {
     }
 
     public static ContestParticipantOrganizerResponse toOrganizerResponse(ContestRegistration registration) {
-        var participant = registration.getParticipant();
+        UserAccount participant = registration.getParticipant();
         return new ContestParticipantOrganizerResponse(
                 participant.getId(),
                 participant.getEmail(),

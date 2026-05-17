@@ -3,9 +3,14 @@ package com.launchgate.contest.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 
-@Schema(description = "Organizer collection")
+/**
+ * Ответ со списком организаторов конкурса.
+ *
+ * @param organizers список пользователей, привязанных к конкурсу с ролью организатора
+ */
+@Schema(description = "Информация об организаторах конкурса")
 public record OrganizerListResponse(
-        @Schema(description = "Users attached to contest with organizer roles")
+        @Schema(description = "Список пользователей, привязанных к конкурсу с ролью организатора")
         List<OrganizerResponse> organizers
 ) {
 }

@@ -6,8 +6,9 @@ import jakarta.validation.constraints.NotNull;
 
 /**
  * Комментарий ментора к отправленному решению этапа.
+ *
  * @param stageSubmissionId идентификатор отправленного решения этапа.
- * @param text комментарий.
+ * @param text              комментарий.
  */
 @Schema(description = "Комментарий ментора к отправленному решению этапа")
 public record MentorCommentRequest(

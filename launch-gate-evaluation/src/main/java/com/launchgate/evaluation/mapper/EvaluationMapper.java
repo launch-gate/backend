@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class EvaluationMapper {
 
-    public AssignmentResponse toAssignmentResponse(ReviewAssignment assignment) {
+    public static AssignmentResponse toAssignmentResponse(ReviewAssignment assignment) {
         return new AssignmentResponse(
                 assignment.getId(),
                 assignment.getStage().getId(),
@@ -18,7 +18,7 @@ public class EvaluationMapper {
         );
     }
 
-    public ReviewResponse toReviewResponse(ReviewAssignment assignment) {
+    public static ReviewResponse toReviewResponse(ReviewAssignment assignment) {
         return new ReviewResponse(
                 assignment.getId(),
                 assignment.getSubmission().getId(),

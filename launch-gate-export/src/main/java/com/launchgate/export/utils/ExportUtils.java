@@ -31,11 +31,12 @@ public class ExportUtils {
 
     /**
      * Сформировать ответ настраиваемой выгрузки.
-     * @param body выгрузка
+     *
+     * @param body   выгрузка
      * @param format формат экспорта
      * @return выгрузка
      */
-    public ResponseEntity<byte[]> createExportResponse(byte[] body, ExportFormat format) {
+    public static ResponseEntity<byte[]> createExportResponse(byte[] body, ExportFormat format) {
         String extension = switch (format) {
             case CSV -> FileConstant.CSV_EXTENSION;
             case XLSX -> FileConstant.XLSX_EXTENSION;
@@ -57,19 +58,21 @@ public class ExportUtils {
 
     /**
      * Создать название файла на основе текущего времени.
+     *
      * @param extension расширение файла
      * @return название файла
      */
-    public String generateFileName(String extension) {
+    public static String generateFileName(String extension) {
         return String.format(FileConstant.EXPORT_FILE_NAME_TEMPLATE, FileConstant.EXPORT_FILE_BASE_NAME, LocalDate.now(), extension);
     }
 
     /**
      * Преобразовать выгрузку в файл csv формата.
+     *
      * @param rows ранговая выгрузка
      * @return csv файл
      */
-    public byte[] toCsv(List<RankingRow> rows) {
+    public static byte[] toCsv(List<RankingRow> rows) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try (CSVPrinter printer = new CSVPrinter(new OutputStreamWriter(out, StandardCharsets.UTF_8), CSVFormat.DEFAULT)) {
             printer.printRecord("stage", "project", "submission_id", "average_score", "completed_reviews");
@@ -93,10 +96,11 @@ public class ExportUtils {
 
     /**
      * Преобразовать выгрузку в файл xlsx формата.
+     *
      * @param rows ранговая выгрузка
      * @return xlsx файл
      */
-    public byte[] toXlsx(List<RankingRow> rows) {
+    public static byte[] toXlsx(List<RankingRow> rows) {
         try (Workbook workbook = new XSSFWorkbook();
              ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 

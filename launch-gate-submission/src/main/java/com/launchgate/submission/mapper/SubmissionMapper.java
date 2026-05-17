@@ -17,7 +17,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class SubmissionMapper {
 
-    public ProjectResponse toProjectResponse(Project project, List<StageSubmissionResponse> submissions) {
+    public static ProjectResponse toProjectResponse(Project project, List<StageSubmissionResponse> submissions) {
         Long teamId = Optional.ofNullable(project.getTeam())
                 .map(Team::getId)
                 .orElse(null);
@@ -35,7 +35,7 @@ public class SubmissionMapper {
         );
     }
 
-    public StageSubmissionResponse toSubmissionResponse(StageSubmission submission, StageParticipantResponse stage, List<SubmissionValue> values) {
+    public static StageSubmissionResponse toSubmissionResponse(StageSubmission submission, StageParticipantResponse stage, List<SubmissionValue> values) {
         return new StageSubmissionResponse(
                 submission.getId(),
                 submission.getStatus(),
@@ -46,7 +46,7 @@ public class SubmissionMapper {
         );
     }
 
-    private ValueResponse toValueResponse(SubmissionValue value) {
+    private static ValueResponse toValueResponse(SubmissionValue value) {
         return new ValueResponse(value.getId(), value.getField().getId(), value.getValueText(), value.getFileIds());
     }
 }

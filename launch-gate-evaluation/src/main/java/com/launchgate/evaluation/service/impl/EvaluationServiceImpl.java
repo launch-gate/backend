@@ -3,7 +3,7 @@ package com.launchgate.evaluation.service.impl;
 import com.launchgate.common.ForbiddenException;
 import com.launchgate.common.LaunchGateException;
 import com.launchgate.common.NotFoundException;
-import com.launchgate.contest.entity.ContestRole;
+import com.launchgate.contest.enums.ContestRole;
 import com.launchgate.contest.entity.stage.ContestStage;
 import com.launchgate.contest.service.ContestReaderService;
 import com.launchgate.contest.service.ContestRolePolicy;

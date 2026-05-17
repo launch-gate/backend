@@ -2,7 +2,7 @@ package com.launchgate.aievaluation.dto;
 
 import com.launchgate.aievaluation.entity.AiFieldReviewStatus;
 import com.launchgate.aievaluation.entity.AiReviewSourceType;
-import com.launchgate.contest.entity.FieldType;
+import com.launchgate.contest.enums.FieldType;
 import java.util.List;
 
 public record AiFieldReviewResponse(

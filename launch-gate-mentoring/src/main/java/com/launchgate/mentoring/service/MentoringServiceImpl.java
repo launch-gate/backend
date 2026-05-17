@@ -2,10 +2,10 @@ package com.launchgate.mentoring.service;
 
 import com.launchgate.common.ForbiddenException;
 import com.launchgate.common.LaunchGateException;
-import com.launchgate.contest.entity.ContestRole;
+import com.launchgate.contest.enums.ContestRole;
 import com.launchgate.contest.entity.team.Team;
 import com.launchgate.contest.service.ContestRolePolicy;
-import com.launchgate.contest.service.TeamService;
+import com.launchgate.contest.service.api.TeamService;
 import com.launchgate.identity.dto.AuthenticatedUser;
 import com.launchgate.identity.entity.UserAccount;
 import com.launchgate.identity.service.UserService;
@@ -26,6 +26,7 @@ import com.launchgate.submission.dto.StageSubmissionResponse;
 import com.launchgate.submission.entity.Project;
 import com.launchgate.submission.entity.StageSubmission;
 import com.launchgate.submission.service.SubmissionReaderService;
+
 import java.time.Clock;
 import java.time.Instant;
 import java.util.List;

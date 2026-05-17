@@ -2,11 +2,12 @@ package com.launchgate.submission.service;
 
 import com.launchgate.common.LaunchGateException;
 import com.launchgate.contest.entity.SubmissionField;
-import com.launchgate.contest.entity.SubmissionFieldFileFormat;
+import com.launchgate.contest.enums.SubmissionFieldFileFormat;
 import com.launchgate.contest.service.ContestReaderService;
 import com.launchgate.filestorage.entity.StoredFile;
 import com.launchgate.filestorage.repository.StoredFileRepository;
 import com.launchgate.submission.dto.ValueRequest;
+
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -26,15 +27,16 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SubmissionValueValidationService {
+    private final static Long MB_TO_BYTE = 1024L * 1024L;
+
     private final StoredFileRepository storedFileRepository;
     private final SubmissionValueRepository valueRepository;
     private final ContestReaderService contestReaderService;
 
-    private final static Long MB_TO_BYTE = 1024L * 1024L;
-
     /**
      * Валидирует и нормализует текстовое поле формы
-     * @param field поле
+     *
+     * @param field   поле
      * @param request содержимое поля.
      * @return поле
      */
@@ -50,7 +52,8 @@ public class SubmissionValueValidationService {
 
     /**
      * Валидирует и нормализует поле формы содержащие файлы.
-     * @param field поле
+     *
+     * @param field   поле
      * @param request содержимое поля.
      * @return поле
      */
@@ -64,7 +67,8 @@ public class SubmissionValueValidationService {
 
     /**
      * Валидирует обязательные поля формы.
-     * @param stageId идентфикатор стадии
+     *
+     * @param stageId      идентфикатор стадии
      * @param submissionId идентификатор формы.
      */
     public void validateRequiredFields(Long stageId, Long submissionId) {

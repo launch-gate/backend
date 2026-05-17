@@ -1,5 +1,6 @@
 package com.launchgate.contest.entity;
 
+import com.launchgate.contest.enums.ContestRole;
 import com.launchgate.identity.entity.UserAccount;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

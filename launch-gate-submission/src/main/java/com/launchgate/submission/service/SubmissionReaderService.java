@@ -14,7 +14,9 @@ import com.launchgate.submission.mapper.SubmissionMapper;
 import com.launchgate.submission.repository.ProjectRepository;
 import com.launchgate.submission.repository.StageSubmissionRepository;
 import com.launchgate.submission.repository.SubmissionValueRepository;
+
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +35,7 @@ public class SubmissionReaderService {
 
     /**
      * Получить форму по идентификатору.
+     *
      * @param submissionId идентификатор формы.
      * @return форма.
      */
@@ -44,6 +47,7 @@ public class SubmissionReaderService {
 
     /**
      * Получить проект по идентификатору.
+     *
      * @param projectId идентификатор проекта.
      * @return проект.
      */
@@ -55,6 +59,7 @@ public class SubmissionReaderService {
 
     /**
      * Получить поля формы.
+     *
      * @param submissionId иденификатор формы.
      * @return поля формы.
      */
@@ -65,6 +70,7 @@ public class SubmissionReaderService {
 
     /**
      * Получить форму этапа.
+     *
      * @param submissionId идентификатор формы.
      * @return форма этапа.
      */
@@ -82,6 +88,7 @@ public class SubmissionReaderService {
 
     /**
      * Получить список отправленных форм на этап.
+     *
      * @param stageId идентфикатор стадии.
      * @return список форм.
      */
@@ -95,6 +102,7 @@ public class SubmissionReaderService {
 
     /**
      * Получить количество отправленных форм на этап.
+     *
      * @param stageId идентфикатор стадии.
      * @return количество форм.
      */

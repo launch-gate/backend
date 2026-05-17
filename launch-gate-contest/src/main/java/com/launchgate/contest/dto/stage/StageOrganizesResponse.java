@@ -2,10 +2,26 @@ package com.launchgate.contest.dto.stage;
 
 import com.launchgate.contest.dto.FieldResponse;
 import com.launchgate.contest.dto.resources.ResourceResponse;
-import com.launchgate.contest.entity.ScoreScale;
+import com.launchgate.contest.enums.ScoreScale;
+
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * Информация о стадии конкурса для организатора.
+ *
+ * @param id          идентификатор стадии
+ * @param order       позиция стадии
+ * @param title       название стадии
+ * @param description описание стадии
+ * @param rules       правила стадии
+ * @param extraInfo   допольнительная информация
+ * @param deadlineAt  дата окончания стадии
+ * @param eliminating стадия блокирующая.
+ * @param scoreScale  шкала оценки
+ * @param fields      поля
+ * @param resources   ресурсы
+ */
 public record StageOrganizesResponse(
         Long id,
         int order,

@@ -1,11 +1,17 @@
 package com.launchgate.contest.dto.contest;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.List;
 
-@Schema(description = "Contest collection")
+/**
+ * Информация о всех конкурсах.
+ *
+ * @param contests список конкурсов.
+ */
+@Schema(description = "Информация о всех конкурсах")
 public record ContestListInfoResponse(
-        @Schema(description = "Contests visible in current context")
+        @Schema(description = "Конкурсы, видимые в текущем контексте")
         List<ContestInfoResponse> contests
 ) {
 }

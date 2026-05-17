@@ -3,9 +3,14 @@ package com.launchgate.contest.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 
-@Schema(description = "Submission field collection")
+/**
+ * Ответ со списком полей формы отправки решения.
+ *
+ * @param fields список настроенных полей для формы конкретного этапа
+ */
+@Schema(description = "Коллекция полей")
 public record FieldListResponse(
-        @Schema(description = "Fields configured for a stage form")
+        @Schema(description = "Поля, настроенные для формы этапа")
         List<FieldResponse> fields
 ) {
 }

@@ -2,6 +2,8 @@ package com.launchgate.contest.entity;
 
 import com.launchgate.contest.entity.stage.ContestStage;
 import com.launchgate.contest.entity.team.Team;
+import com.launchgate.contest.enums.ContestStatus;
+import com.launchgate.contest.enums.ParticipationMode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
