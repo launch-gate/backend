@@ -14,15 +14,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Котроллер для взаимодействия с ИИ модулем.
+ */
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-@Tag(name = "AI Evaluation", description = "AI-assisted review for stage submissions")
+@Tag(name = "ИИ-оценивание", description = "Проверка решений этапа с использованием ИИ")
 public class AiEvaluationController {
     private final AiEvaluationService aiEvaluationService;
 
     @GetMapping("/organizer/evaluations/{submissionId}/ai-review")
-    @Operation(summary = "Load stored AI review results for submission if they exist")
+    @Operation(summary = "Загрузить сохраненные результаты ИИ-проверки для решения, если они существуют")
     public AiReviewLookupResponse getReview(
             @AuthenticationPrincipal AuthenticatedUser user,
             @PathVariable Long submissionId
@@ -31,7 +34,7 @@ public class AiEvaluationController {
     }
 
     @PostMapping("/organizer/evaluations/{submissionId}/ai-review")
-    @Operation(summary = "Run AI review by field criteria and persist results")
+    @Operation(summary = "Запустить проверку ИИ по критериям полей и сохранить результаты")
     public AiReviewResponse runReview(
             @AuthenticationPrincipal AuthenticatedUser user,
             @PathVariable Long submissionId

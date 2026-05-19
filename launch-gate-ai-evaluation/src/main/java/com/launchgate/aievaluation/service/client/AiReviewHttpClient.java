@@ -6,17 +6,16 @@ import com.launchgate.common.DomainException;
 import com.launchgate.contest.entity.FieldCriterion;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+@Slf4j
 @Service
 public class AiReviewHttpClient {
-    private static final ParameterizedTypeReference<List<AiProviderReviewResult>> RESPONSE_TYPE = new ParameterizedTypeReference<>() {
-    };
-    private static final Logger log = LoggerFactory.getLogger(AiReviewHttpClient.class);
+    private static final ParameterizedTypeReference<List<AiProviderReviewResult>> RESPONSE_TYPE = new ParameterizedTypeReference<>() {};
     private static final String DEFAULT_TITLE = "Untitled submission field";
 
     private final RestClient restClient;
