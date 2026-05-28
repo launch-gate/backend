@@ -102,7 +102,7 @@ public class EvaluationServiceImpl implements EvaluationService {
     public ReviewResponse publish(AuthenticatedUser expert, Long assignmentId) {
         ReviewAssignment assignment = requireExpertAssignment(expert, assignmentId);
 
-        if (Objects.nonNull(assignment.getScore())) {
+        if (Objects.isNull(assignment.getScore())) {
             throw new LaunchGateException("Необходимо выставить оценку для публикации проверки");
         }
 
