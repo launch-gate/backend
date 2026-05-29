@@ -87,11 +87,13 @@ public class ExportUtils {
                 );
             }
 
-            return out.toByteArray();
+            printer.flush();
         } catch (Exception e) {
             log.error("Ошибка при генерации CSV файла", e);
             throw new LaunchGateException("Ошибка при генерации CSV файла");
         }
+
+        return out.toByteArray();
     }
 
     /**
