@@ -1,6 +1,7 @@
 package com.launchgate.submission.service;
 
 import com.launchgate.identity.dto.AuthenticatedUser;
+import com.launchgate.submission.dto.OrganizerStageSubmissionListResponse;
 import com.launchgate.submission.dto.StageSubmissionResponse;
 import com.launchgate.submission.dto.ValueRequest;
 
@@ -9,6 +10,15 @@ import com.launchgate.submission.dto.ValueRequest;
  * Отвечает за валидацию, сохранение промежуточных значений и финальную подачу заявок участниками.
  */
 public interface SubmissionService {
+
+    /**
+     * Получить все отправленные решения этапа для пространства организатора.
+     *
+     * @param user    пользователь
+     * @param stageId идентификатор стадии
+     * @return список отправленных решений
+     */
+    OrganizerStageSubmissionListResponse organizerStageSubmissions(AuthenticatedUser user, Long stageId);
 
     /**
      * Сохранение значения в черновике формы этапа.

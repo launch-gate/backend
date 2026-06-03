@@ -26,6 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class SubmissionController {
     private final SubmissionService submissionService;
 
+    @GetMapping("/organizer/stages/{stageId}/submissions")
+    @Operation(summary = "Получение всех отправленных решений этапа для пространства организатора")
+    public OrganizerStageSubmissionListResponse organizerStageSubmissions(
+            @AuthenticationPrincipal AuthenticatedUser user,
+            @PathVariable Long stageId
+    ) {
+        return submissionService.organizerStageSubmissions(user, stageId);
+    }
+
     @GetMapping("/organizer/stage-submissions/{submissionId}")
     @Operation(summary = "Получение подробной информации по форме этапа для пространства организатора")
     public StageSubmissionResponse organizerSubmission(@AuthenticationPrincipal AuthenticatedUser user, @PathVariable Long submissionId) {

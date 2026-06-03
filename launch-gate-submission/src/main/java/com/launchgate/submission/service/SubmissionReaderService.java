@@ -101,6 +101,19 @@ public class SubmissionReaderService {
     }
 
     /**
+     * Получить отправленные формы этапа.
+     *
+     * @param stageId идентификатор стадии.
+     * @return отправленные формы этапа.
+     */
+    @Transactional(readOnly = true)
+    public List<StageSubmission> getSubmittedStageSubmissions(Long stageId) {
+        return submissionRepository.findAllByStage_Id(stageId).stream()
+                .filter(submission -> submission.getStatus() == SubmissionStatus.SUBMITTED)
+                .toList();
+    }
+
+    /**
      * Получить количество отправленных форм на этап.
      *
      * @param stageId идентфикатор стадии.

@@ -9,8 +9,11 @@ import com.launchgate.contest.entity.stage.ContestStage;
 import com.launchgate.contest.service.ContestReaderService;
 import com.launchgate.contest.service.ContestRolePolicy;
 import com.launchgate.contest.service.api.TeamService;
+import com.launchgate.contest.utils.stage.StageMapper;
 import com.launchgate.identity.dto.AuthenticatedUser;
 import com.launchgate.identity.service.UserService;
+import com.launchgate.submission.dto.OrganizerStageSubmissionListResponse;
+import com.launchgate.submission.dto.OrganizerStageSubmissionResponse;
 import com.launchgate.submission.dto.StageSubmissionResponse;
 import com.launchgate.submission.dto.ValueRequest;
 import com.launchgate.submission.entity.Project;
@@ -21,6 +24,7 @@ import com.launchgate.submission.repository.StageSubmissionRepository;
 import com.launchgate.submission.repository.SubmissionValueRepository;
 import com.launchgate.submission.service.ProjectResponseAssembler;
 import com.launchgate.submission.service.ProjectValidationService;
+import com.launchgate.submission.service.SubmissionReaderService;
 import com.launchgate.submission.service.SubmissionService;
 import com.launchgate.submission.service.SubmissionValueValidationService;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +50,32 @@ public class SubmissionServiceImpl implements SubmissionService {
     private final UserService userService;
     private final ProjectValidationService projectValidationService;
     private final ProjectResponseAssembler projectResponseAssembler;
+    private final SubmissionReaderService submissionReaderService;
     private final Clock clock;
+
+    @Override
+    @Transactional(readOnly = true)
+    public OrganizerStageSubmissionListResponse organizerStageSubmissions(AuthenticatedUser user, Long stageId) {
+        ContestStage stage = contestReaderService.getStageById(stageId);
+        rolePolicy.requireAny(stage.getContestId(), user.id(), ContestRole.CREATOR, ContestRole.ADMIN);
+
+        return new OrganizerStageSubmissionListResponse(
+                StageMapper.toStageOrganizesResponse(stage),
+                submissionReaderService.getSubmittedStageSubmissions(stageId).stream()
+                        .map(submission -> {
+                            StageSubmissionResponse submissionResponse =
+                                    projectResponseAssembler.createSubmissionResponse(stage, submission);
+
+                            return new OrganizerStageSubmissionResponse(
+                                    projectResponseAssembler.createSubmissionSummary(submission, stageId),
+                                    submissionResponse.id(),
+                                    submissionResponse.status(),
+                                    submissionResponse.values()
+                            );
+                        })
+                        .toList()
+        );
+    }
 
     @Override
     @Transactional
@@ -109,4 +138,3 @@ public class SubmissionServiceImpl implements SubmissionService {
         return projectResponseAssembler.createSubmissionResponse(stage, submission);
     }
 }
-
