@@ -38,6 +38,10 @@ public class ContestRegistrationServiceImpl implements ContestRegistrationServic
     public List<ContestParticipantResponse> participantVisibleParticipants(AuthenticatedUser user, Long contestId) {
         Contest contest = contestReaderService.getContestById(contestId);
 
+        if (user == null) {
+            throw new LaunchGateException("Для просмотра участников необходимо авторизоваться");
+        }
+
         if (ContestStatus.DRAFT.equals(contest.getStatus())) {
             throw new LaunchGateException("Конкурс еще не опубликован");
         }

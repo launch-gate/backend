@@ -35,6 +35,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/contests/*/participants").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/v1/contests/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/files/*/download-url").permitAll()
                         .requestMatchers("/api/v1/organizer/**").hasRole("ORGANIZER")
