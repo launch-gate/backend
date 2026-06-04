@@ -275,10 +275,6 @@ public class TeamServiceImpl implements TeamService {
         }
 
         LocalDate today = LocalDate.now(clock);
-        if (contest.getStartsAt() != null && today.isBefore(contest.getStartsAt())) {
-            throw new LaunchGateException("Регистрация открывается в день начала конкурса");
-        }
-
         if (contest.getRegistrationEndsAt() != null && today.isAfter(contest.getRegistrationEndsAt())) {
             throw new LaunchGateException("Период регистрации завершен");
         }
